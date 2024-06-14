@@ -13,19 +13,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Session {
+  id        String   @id
+  userId    Int
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model User {
-	id Int @id @default(autoincrement())
-	username String @unique
-	displayName String?
-	createdAt DateTime @default(now())
-	profileImage String?
-	posts Post[]
+  id           Int       @id
+  username     String    @unique
+  displayName  String?
+  createdAt    DateTime  @default(now())
+  profileImage String?
+  posts        Post[]
+  Session      Session[]
 }
 
 model Post {
-	id Int @id @default(autoincrement())
-	authorId Int
-	author User @relation(fields: [authorId], references: [id])
-	content String?
-	createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
+  content   String?
+  createdAt DateTime @default(now())
 }
