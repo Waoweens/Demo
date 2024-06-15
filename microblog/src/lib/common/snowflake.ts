@@ -1,48 +1,48 @@
-class Snowflake {
-	private epoch: number;
-	private machineId: number;
-	private sequence: number;
-	private lastTimestamp: number;
+export default class SnowflakeGenerator {
+	private epoch: bigint;
+	private workerId: bigint;
+	private sequence: bigint;
+	private lastTimestamp: bigint;
 
-	constructor(machineId: number) {
-		this.epoch = 1577836800000; // Example epoch (January 1, 2020)
-		this.machineId = machineId;
-		this.sequence = 0;
-		this.lastTimestamp = -1;
+	constructor(workerId: number) {
+		this.epoch = BigInt(1577836800000); // 2020-01-01T00:00:00.000Z
+		this.workerId = BigInt(workerId);
+		this.sequence = BigInt(0);
+		this.lastTimestamp = BigInt(-1);
 	}
 
-	private currentTimestamp(): number {
-		return Date.now();
-	}
-
-	private waitNextMillis(lastTimestamp: number): number {
-		let timestamp = this.currentTimestamp();
-		while (timestamp <= lastTimestamp) {
-			timestamp = this.currentTimestamp();
+	private waitNextMillis(timestamp: bigint): bigint {
+		while (timestamp === this.lastTimestamp) {
+			timestamp = BigInt(Date.now()) - this.epoch;
 		}
 		return timestamp;
 	}
 
-	public nextId(): string {
-		let timestamp = this.currentTimestamp();
+	generate(): bigint {
+		let timestamp = BigInt(Date.now()) - this.epoch;
 
 		if (timestamp < this.lastTimestamp) {
-			throw new Error('Clock moved backwards. Refusing to generate id');
+			throw new Error(
+				'Clock moved backwards. Refusing to generate id. Check your Time Travelers Guidebook.'
+			);
 		}
 
-		if (timestamp === this.lastTimestamp) {
-			this.sequence = (this.sequence + 1) & 0xfff; // 12 bits sequence
-			if (this.sequence === 0) {
+		if (this.lastTimestamp === timestamp) {
+			this.sequence = (this.sequence + BigInt(1)) & BigInt(0xfff); // 12-bit
+
+			if (this.sequence === BigInt(0)) {
 				timestamp = this.waitNextMillis(this.lastTimestamp);
 			}
 		} else {
-			this.sequence = 0;
+			this.sequence = BigInt(0);
 		}
 
 		this.lastTimestamp = timestamp;
 
-		const id = ((timestamp - this.epoch) << 22) | (this.machineId << 12) | this.sequence;
-
-		return id.toString();
+		return (
+			((timestamp & BigInt(0x1FFFFFFFFFF)) << BigInt(22)) | // Timestamp left shift 22 bits
+			(this.workerId << BigInt(12)) | // Machine ID left shift 12 bits
+			this.sequence // Sequence number
+		); 
 	}
 }
