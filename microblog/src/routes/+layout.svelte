@@ -1,5 +1,15 @@
 <script lang="ts">
-	import "../app.css"
+	import Navbar from "$lib/components/Navbar.svelte";
+import "../app.css"
 </script>
 
-<slot />
+<div class="flex flex-col h-screen">
+	<header>
+		<nav>
+			<Navbar />
+		</nav>
+	</header>
+	<div class="flex-1">
+		<slot />
+	</div>
+</div>
