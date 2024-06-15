@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
 	height: 100%;
+}
+
+.tab-custom-color {
+	--tw-border-opacity: 0.2;
+	/* border-color: var(red / var(--tw-border-opacity)) !important; */
+	border-color: oklch(var(--p)) !important;
 }
