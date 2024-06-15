@@ -9,5 +9,10 @@ export default {
   plugins: [
 	daisyui
   ],
+
+  daisyui: {
+	themes: ["emerald", "dracula"],
+	darkTheme: "dracula"
+  }
 }
 
