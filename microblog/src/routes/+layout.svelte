@@ -1,4 +1,5 @@
 <script lang="ts">
+	import BottomNavbar from "$lib/components/BottomNavbar.svelte";
 	import Navbar from "$lib/components/Navbar.svelte";
 import "../app.css"
 </script>
@@ -12,4 +13,9 @@ import "../app.css"
 	<div class="flex-1">
 		<slot />
 	</div>
+	<footer>
+		<nav class="md:hidden">
+			<BottomNavbar />
+		</nav>
+	</footer>
 </div>
