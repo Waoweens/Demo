@@ -23,6 +23,7 @@ model Session {
 model User {
   id           Int       @id
   username     String    @unique
+  passwordHash String
   displayName  String?
   createdAt    DateTime  @default(now())
   profileImage String?
