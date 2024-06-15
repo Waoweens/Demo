@@ -1,9 +1,16 @@
 <script lang="ts">
-	import type { PageData } from "./$types";
+	import Composer from "$lib/components/Composer.svelte";
+	import Timeline from "$lib/components/Timeline.svelte";
 
-	export let data: PageData;
-
-	console.log(data.test)
 </script>
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+
+<div class="flex h-full justify-center">
+	<div class="flex w-full flex-row max-w-6xl">
+		<aside class="basis-1/5 border border-red-500">Left sidebar</aside>
+		<main class="basis-3/5 border border-red-500 flex flex-col">
+			<Composer />
+			<Timeline />
+		</main>
+		<aside class="basis-1/5 border border-red-500">Right sidebar</aside>
+	</div>
+</div>
