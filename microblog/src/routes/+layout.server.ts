@@ -5,6 +5,7 @@ export const load: LayoutServerLoad = async (event) => {
 
 	return {
 		signedIn: true,
-		username: event.locals.user.username
+		username: event.locals.user.username,
+		userId: event.locals.user.id
 	};
 };
