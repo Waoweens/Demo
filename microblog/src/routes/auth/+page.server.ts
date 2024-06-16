@@ -13,29 +13,29 @@ export const actions: Actions = {
 
 		if (!username)
 			return fail(400, {
-				message: 'auth/username-missing'
+				error: 'auth/username-missing'
 			});
 
 		if (!password)
 			return fail(400, {
-				message: 'auth/password-missing'
+				error: 'auth/password-missing'
 			});
 
 		if (password !== confirmPassword)
 			return fail(400, {
-				message: 'auth/password-mismatch'
+				error: 'auth/password-mismatch'
 			});
 
 		// check if the username is already taken
 		if (
-			!(await db.user.findUnique({
+			await db.user.findUnique({
 				where: {
 					username
 				}
-			}))
+			})
 		)
 			return fail(400, {
-				message: 'auth/username-taken'
+				error: 'auth/username-taken'
 			});
 
 		// Register the user
@@ -58,7 +58,7 @@ export const actions: Actions = {
 			...sessionCookie.attributes
 		});
 
-		redirect(302, '/');
+		return redirect(302, '/auth/redirect-root')
 	},
 	login: async (event) => {
 		const formData = await event.request.formData();
@@ -67,12 +67,12 @@ export const actions: Actions = {
 
 		if (!username)
 			return fail(400, {
-				message: 'auth/username-missing'
+				error: 'auth/username-missing'
 			});
 
 		if (!password)
 			return fail(400, {
-				message: 'auth/password-missing'
+				error: 'auth/password-missing'
 			});
 
 		const user = await db.user.findUnique({
@@ -82,13 +82,13 @@ export const actions: Actions = {
 		});
 		if (!user)
 			return fail(400, {
-				message: 'auth/invalid-credentials'
+				error: 'auth/invalid-credentials'
 			});
 
 		const valid = await Bun.password.verify(password, user.passwordHash);
 		if (!valid)
 			return fail(400, {
-				message: 'auth/invalid-credentials'
+				error: 'auth/invalid-credentials'
 			});
 
 		const session = await lucia.createSession(user.id, {});
@@ -98,11 +98,12 @@ export const actions: Actions = {
 			...sessionCookie.attributes
 		});
 
-		redirect(302, '/');
+		return redirect(302, '/auth/redirect-root')
 	},
 	logout: async (event) => {
+		// console.log('logout')
 		if (!event.locals.session) {
-			return fail(401)
+			return fail(401);
 		}
 
 		await lucia.invalidateSession(event.locals.session.id);
@@ -111,5 +112,7 @@ export const actions: Actions = {
 			path: '.',
 			...sessionCookie.attributes
 		});
+
+		return redirect(302, '/auth/redirect-root')
 	}
 };
