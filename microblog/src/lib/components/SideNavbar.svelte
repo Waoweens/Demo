@@ -17,6 +17,7 @@
 	<div class="flex flex-col gap-2">
 		{#if !authStatus}
 			<div class="flex">
+				<div class="shrink-0 w-2"></div>
 				<div class="alert alert-info">
 					<InfoIcon class="text-xl" />
 					<span>Not signed in</span>
