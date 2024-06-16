@@ -7,6 +7,8 @@
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
+
+	$: authStatus = data.signedIn;
 </script>
 
 <div class="flex flex-col h-screen">
@@ -18,7 +20,7 @@
 	<div class="flex-1 flex h-full justify-center p-2">
 		<div class="flex w-full max-w-6xl">
 			<aside class="hidden md:block basis-1/5">
-				<SideNavbar authStatus={data.signedIn} />
+				<SideNavbar {authStatus} />
 			</aside>
 			<main class="flex-1 border-x border-neutral">
 				<slot />
@@ -33,7 +35,7 @@
 	</div>
 	<footer>
 		<nav class="md:hidden">
-			<BottomNavbar />
+			<BottomNavbar {authStatus} />
 		</nav>
 	</footer>
 </div>

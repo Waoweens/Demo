@@ -6,7 +6,7 @@
 	import type { PageData, LayoutData } from './$types';
 
 	export let data: PageData & LayoutData;
-	const authStatus = data.signedIn;
+	$: authStatus = data.signedIn;
 </script>
 
 <div class="flex flex-col">
