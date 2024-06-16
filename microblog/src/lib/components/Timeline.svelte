@@ -17,7 +17,7 @@
 				<div>
 					<span class="font-bold">Display Name</span>
 				</div>
-				<div class="text-slate-300">
+				<div class="text-slate-600 dark:text-slate-300">
 					<span>@username</span>
 					<span role="separator">—</span>
 					<time>2 hours ago</time>
