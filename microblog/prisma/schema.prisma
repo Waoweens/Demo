@@ -21,7 +21,7 @@ model Session {
 }
 
 model User {
-  id           BigInt       @id
+  id           BigInt    @id
   username     String    @unique
   passwordHash String
   displayName  String?
@@ -32,7 +32,7 @@ model User {
 }
 
 model Post {
-  id        BigInt      @id @default(autoincrement())
+  id        BigInt   @id @default(autoincrement())
   authorId  BigInt
   author    User     @relation(fields: [authorId], references: [id])
   content   String?
