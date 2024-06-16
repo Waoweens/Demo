@@ -29,6 +29,23 @@ model User {
   profileImage String?
   posts        Post[]
   Session      Session[]
+
+  // Users that this user is following
+  followedBy Follower[] @relation("UserFollows")
+  // Users that are following this user
+  following  Follower[] @relation("UserFollowed")
+}
+
+model Follower {
+  id Int @id @default(autoincrement())
+
+  followerId BigInt
+  follower   User   @relation(name: "UserFollowed", fields: [followerId], references: [id])
+
+  followingId BigInt
+  following   User   @relation(name: "UserFollows", fields: [followingId], references: [id])
+
+  @@unique([followerId, followingId])
 }
 
 model Post {
