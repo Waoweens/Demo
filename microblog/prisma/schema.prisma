@@ -37,7 +37,7 @@ model User {
 }
 
 model Follower {
-  id Int @id @default(autoincrement())
+  id BigInt @id
 
   followerId BigInt
   follower   User   @relation(name: "UserFollowed", fields: [followerId], references: [id])
