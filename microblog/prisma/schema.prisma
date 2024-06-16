@@ -35,7 +35,7 @@ model User {
 
   // user content
   posts Post[] @relation("author")
-  yeahs Post[] @relation("Yeahs")
+  yeahs Yeah[] @relation("UserYeahs")
 
   // user relationships
   followedBy Follower[] @relation("UserFollows")
@@ -56,14 +56,14 @@ model Follower {
 
 model Post {
   // post
-  id        BigInt   @id @default(autoincrement())
+  id        BigInt   @id
   authorId  BigInt
   author    User     @relation("author", fields: [authorId], references: [id])
   content   String?
   createdAt DateTime @default(now())
 
   // post relationships
-  yeahs   User[] @relation("Yeahs")
+  yeahs   Yeah[] @relation("PostYeahs")
   replies Post[] @relation("Replies")
   reposts Post[] @relation("Reposts")
   quotes  Post[] @relation("Quotes")
@@ -79,4 +79,13 @@ model Post {
   // quote
   quoteParent   Post?   @relation("Quotes", fields: [quoteParentId], references: [id])
   quoteParentId BigInt?
+}
+
+model Yeah {
+  user   User   @relation("UserYeahs", fields: [userId], references: [id])
+  userId BigInt
+  post   Post   @relation("PostYeahs", fields: [postId], references: [id])
+  postId BigInt
+
+  @@unique([userId, postId])
 }
