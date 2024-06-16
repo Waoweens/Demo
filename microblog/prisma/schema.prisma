@@ -34,8 +34,8 @@ model User {
   profileImage String?
 
   // user content
-  posts Post[]
-  yeahs Yeah[]
+  posts Post[] @relation("author")
+  yeahs Post[] @relation("Yeahs")
 
   // user relationships
   followedBy Follower[] @relation("UserFollows")
@@ -58,12 +58,12 @@ model Post {
   // post
   id        BigInt   @id @default(autoincrement())
   authorId  BigInt
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation("author", fields: [authorId], references: [id])
   content   String?
   createdAt DateTime @default(now())
 
   // post relationships
-  yeahs   Yeah[]
+  yeahs   User[] @relation("Yeahs")
   replies Post[] @relation("Replies")
   reposts Post[] @relation("Reposts")
   quotes  Post[] @relation("Quotes")
@@ -79,15 +79,4 @@ model Post {
   // quote
   quoteParent   Post?   @relation("Quotes", fields: [quoteParentId], references: [id])
   quoteParentId BigInt?
-}
-
-model Yeah {
-  id     BigInt @id @default(autoincrement())
-  postId BigInt
-  post   Post   @relation(fields: [postId], references: [id])
-
-  userId BigInt
-  user   User   @relation(fields: [userId], references: [id])
-
-  @@unique([postId, userId])
 }
