@@ -82,8 +82,11 @@ model Post {
 }
 
 model Yeah {
+  id BigInt @id
+
   user   User   @relation("UserYeahs", fields: [userId], references: [id])
   userId BigInt
+
   post   Post   @relation("PostYeahs", fields: [postId], references: [id])
   postId BigInt
 
