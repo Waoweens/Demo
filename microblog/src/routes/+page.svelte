@@ -1,10 +1,14 @@
 <script lang="ts">
 	import Composer from '$components/Composer.svelte';
+	import RelativeTime from '$components/RelativeTime.svelte';
 	import SideNavbar from '$components/SideNavbar.svelte';
 	import Timeline from '$components/Timeline.svelte';
-	import type { LayoutData } from './$types';
+	import type { PageData, LayoutData } from './$types';
 
-	export let data: LayoutData;
+	export let data: PageData & LayoutData;
+	const authStatus = data.signedIn;
+
+	// $: console.log(data);
 </script>
 
 <div class="flex h-full justify-center">
@@ -29,7 +33,7 @@
 					</div>
 				{/if}
 			</div>
-			<Timeline />
+			<Timeline {authStatus} posts={data.posts}  />
 		</main>
 		<aside class="hidden md:block basis-1/5">Right sidebar</aside>
 	</div>
