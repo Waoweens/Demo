@@ -21,18 +21,23 @@ model Session {
 }
 
 model User {
+  // basic user info
   id           BigInt    @id
   username     String    @unique
   passwordHash String
-  displayName  String?
-  createdAt    DateTime  @default(now())
-  profileImage String?
-  posts        Post[]
   sessions     Session[]
+  createdAt    DateTime  @default(now())
 
-  // Users that this user is following
+  // user profile
+  displayName  String?
+  bio          String?
+  profileImage String?
+
+  // user content
+  posts Post[]
+
+  // user relationships
   followedBy Follower[] @relation("UserFollows")
-  // Users that are following this user
   following  Follower[] @relation("UserFollowed")
 }
 
