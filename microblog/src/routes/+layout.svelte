@@ -17,12 +17,12 @@
 			<Navbar />
 		</nav>
 	</header>
-	<div class="flex-1 flex h-full justify-center p-2">
+	<div class="flex-1 flex h-full justify-center">
 		<div class="flex w-full max-w-6xl">
-			<aside class="hidden md:block basis-1/5">
+			<aside class="hidden md:block basis-1/5 p-2">
 				<SideNavbar {authStatus} />
 			</aside>
-			<main class="flex-1 border-x border-neutral">
+			<main class="flex-1 md:border-x border-neutral">
 				<slot />
 			</main>
 			<aside class="hidden md:block basis-1/5 p-2">
