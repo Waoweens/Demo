@@ -28,7 +28,7 @@ model User {
   createdAt    DateTime  @default(now())
   profileImage String?
   posts        Post[]
-  Session      Session[]
+  sessions     Session[]
 
   // Users that this user is following
   followedBy Follower[] @relation("UserFollows")
