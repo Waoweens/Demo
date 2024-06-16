@@ -32,7 +32,7 @@
 		{#if controls}
 			<div class="flex justify-between">
 				<div>
-					<button type="submit" class="btn btn-sm btn-primary">Attach Media</button>
+					<button disabled type="submit" class="btn btn-sm btn-primary">Attach Media</button>
 				</div>
 				<div class="flex gap-3 items-center">
 					<span class={isOverLimit ? 'text-error' : ''}>{content.length}/{characterLimit}</span>
