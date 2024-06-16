@@ -10,10 +10,10 @@
 	<button type="button" class="active">
 		<HomeIcon class="text-xl" />
 	</button>
-	<button type="button">
+	<button type="button" disabled>
 		<SearchIcon class="text-xl" />
 	</button>
-	<button type="button">
+	<button type="button" disabled>
 		<ChatIcon class="text-xl" />
 	</button>
 	<button type="button">
