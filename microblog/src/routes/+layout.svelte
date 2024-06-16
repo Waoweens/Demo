@@ -2,6 +2,7 @@
 	import BottomNavbar from '$components/BottomNavbar.svelte';
 	import Navbar from '$components/Navbar.svelte';
 	import SideNavbar from '$components/SideNavbar.svelte';
+	import SearchIcon from '~icons/material-symbols/search';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 
@@ -14,7 +15,7 @@
 			<Navbar />
 		</nav>
 	</header>
-	<div class="flex-1 flex h-full justify-center">
+	<div class="flex-1 flex h-full justify-center p-2">
 		<div class="flex w-full max-w-6xl">
 			<aside class="hidden md:block basis-1/5">
 				<SideNavbar authStatus={data.signedIn} />
@@ -22,7 +23,12 @@
 			<main class="flex-1 border-x border-neutral">
 				<slot />
 			</main>
-			<aside class="hidden md:block basis-1/5">Right sidebar</aside>
+			<aside class="hidden md:block basis-1/5 p-2">
+				<label class="input input-bordered flex items-center gap-2">
+					<SearchIcon class="w-6 h-6" />
+					<input disabled type="search" placeholder="Search" class="grow" />
+				</label>
+			</aside>
 		</div>
 	</div>
 	<footer>
