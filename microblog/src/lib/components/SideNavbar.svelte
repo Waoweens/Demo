@@ -75,7 +75,7 @@
 			<li>
 				<a href="/auth">
 					<LoginIcon class="text-xl" />
-					<span>Login</span>
+					<span>Sign in</span>
 				</a>
 			</li>
 		{/if}

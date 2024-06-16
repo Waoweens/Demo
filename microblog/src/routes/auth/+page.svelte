@@ -16,7 +16,7 @@
 </script>
 
 <form use:enhance action="/auth?/{action}" method="post" class="form-control gap-4">
-	<h1 class="text-2xl font-bold text-center">{action === 'login' ? 'Login' : 'Register'}</h1>
+	<h1 class="text-2xl font-bold text-center">{action === 'login' ? 'Sign in' : 'Register'}</h1>
 	<label class="input input-bordered flex items-center gap-2">
 		<span><UsernameIcon /></span>
 		<input
@@ -55,12 +55,12 @@
 		<p class="text-error">{form?.error}</p>
 	{/if}
 	<button class="btn btn-primary" type="submit">
-		{action === 'login' ? 'Login' : 'Register'}
+		{action === 'login' ? 'Sign in' : 'Register'}
 	</button>
 	<p class="text-center">
 		{action === 'login' ? "Don't have an account?" : 'Already have an account?'}
 		<button type="button" on:click={switchAction} class="link">
-			{action === 'login' ? 'Register' : 'Login'}
+			{action === 'login' ? 'Register' : 'Sign in'}
 		</button>
 	</p>
 </form>
