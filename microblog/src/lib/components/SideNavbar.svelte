@@ -18,7 +18,7 @@
 		{#if !authStatus}
 			<div class="flex">
 				<div class="shrink-0 w-2"></div>
-				<div class="alert alert-info">
+				<div class="alert alert-info shadow-lg">
 					<InfoIcon class="text-xl" />
 					<span>Not signed in</span>
 				</div>
