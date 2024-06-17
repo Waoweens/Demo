@@ -6,13 +6,15 @@
 	import '../app.css';
 	import type { LayoutData } from './$types';
 	import LogoutModal from '$components/LogoutModal.svelte';
+	import { writable } from 'svelte/store';
+	import type { DatabaseUserAttributes } from '$lib/common/util';
+	import { setContext } from 'svelte';
 
 	export let data: LayoutData;
 
-	$: console.log(data);
-
-	$: authStatus = data.signedIn;
-	$: avatar = data
+	const user = writable<DatabaseUserAttributes | undefined>();
+	$: user.set(data.user);
+	setContext('user', user);
 </script>
 
 <!--Modals-->
@@ -28,7 +30,7 @@
 		<div class="flex w-full max-w-6xl">
 			<!--Left sidebar-->
 			<aside class="hidden md:block basis-1/5 p-2">
-				<SideNavbar {authStatus} />
+				<SideNavbar />
 			</aside>
 			<!--Main content-->
 			<main class="flex-1 md:border-x border-neutral">
@@ -45,8 +47,14 @@
 						<div class="card-body">
 							<h2 class="card-title">Welcome!</h2>
 							<p>This is a little demo of a microblogging platform made with SvelteKit.</p>
-							<a href="https://github.com/Waoweens/Demo/tree/main/microblog" class="link">Source code</a>
-							<p>&copy; <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="link">GNU GPL v3.0</a></p>
+							<a href="https://github.com/Waoweens/Demo/tree/main/microblog" class="link"
+								>Source code</a
+							>
+							<p>
+								&copy; <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="link"
+									>GNU GPL v3.0</a
+								>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -55,7 +63,7 @@
 	</div>
 	<footer>
 		<nav class="md:hidden">
-			<BottomNavbar {authStatus} />
+			<BottomNavbar />
 		</nav>
 	</footer>
 </div>

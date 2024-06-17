@@ -7,13 +7,15 @@
 	import LoginIcon from '~icons/material-symbols/login';
 	import LogoutIcon from '~icons/material-symbols/logout';
 	import LogoutButton from './LogoutButton.svelte';
+	import { getContext } from 'svelte';
+	import { type PassedUser } from '$lib/common/util';
 
-	export let authStatus: boolean = false;
+	const user = getContext<PassedUser>('user');
 </script>
 
 <div class="h-full flex flex-col justify-between py-4">
 	<div class="flex flex-col gap-2">
-		{#if !authStatus}
+		{#if !$user?.id}
 			<div class="flex">
 				<div class="shrink-0 w-2"></div>
 				<div class="alert alert-info shadow-lg">
@@ -30,13 +32,13 @@
 					<span>Home</span>
 				</button>
 			</li>
-			<li class={!authStatus ? 'disabled' : ''}>
+			<li class={!$user?.id ? 'disabled' : ''}>
 				<button type="button">
 					<NotificationsIcon class="text-xl" />
 					<span>Notifications</span>
 				</button>
 			</li>
-			<li class={!authStatus ? 'disabled' : ''}>
+			<li class={!$user?.id ? 'disabled' : ''}>
 				<button type="button">
 					<ProfileIcon class="text-xl" />
 					<span>Profile</span>
@@ -45,13 +47,13 @@
 		</ul>
 	</div>
 	<ul class="menu gap-4">
-		<li class={!authStatus ? 'disabled' : ''}>
-			<button type="button" disabled={!authStatus}>
+		<li class={!$user?.id ? 'disabled' : ''}>
+			<button type="button" disabled={!$user?.id}>
 				<SettingsIcon class="text-xl" />
 				<span>Settings</span>
 			</button>
 		</li>
-		{#if authStatus}
+		{#if $user?.id}
 			<li>
 				<LogoutButton>
 					<LogoutIcon class="text-xl" />

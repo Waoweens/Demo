@@ -4,11 +4,13 @@
 	import ChatIcon from '~icons/material-symbols/chat-bubble';
 	import NotificationsIcon from '~icons/material-symbols/notifications';
 	import ProfileIcon from '~icons/material-symbols/person';
+	import { getContext } from 'svelte';
+	import type { PassedUser } from '$lib/common/util';
 
-	export let authStatus: boolean = false;
+	const user = getContext<PassedUser>('user');
 </script>
 
-{#if authStatus}
+{#if $user?.id}
 	<div class="btm-nav">
 		<button type="button" class="active">
 			<HomeIcon class="text-xl" />

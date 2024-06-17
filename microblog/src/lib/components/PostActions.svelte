@@ -7,7 +7,6 @@
 	import type { TimelinePost } from '$lib/common/util';
 
 	export let post: TimelinePost;
-	export let authStatus: boolean = false;
 
 	function reply(post: TimelinePost) {
 		console.log('Reply');

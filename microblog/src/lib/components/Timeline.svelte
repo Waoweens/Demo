@@ -6,11 +6,8 @@
 	import PostHeader from './PostHeader.svelte';
 	import PostActions from './PostActions.svelte';
 
-	export let authStatus: boolean = false;
 	export let posts: TimelinePost[] = [];
 	let selection: string = '';
-
-	$: console.log(posts);
 
 	function openPost(event: Event, post: TimelinePost) {
 		if (selection.length > 0) {
@@ -51,7 +48,7 @@
 				<p>
 					{post.content}
 				</p>
-				<PostActions {post} {authStatus} />
+				<PostActions {post} />
 			</div>
 		</article>
 	{/each}

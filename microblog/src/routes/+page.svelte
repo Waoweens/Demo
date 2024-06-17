@@ -3,10 +3,13 @@
 	import RelativeTime from '$components/RelativeTime.svelte';
 	import SideNavbar from '$components/SideNavbar.svelte';
 	import Timeline from '$components/Timeline.svelte';
+	import { getContext } from 'svelte';
 	import type { PageData, LayoutData } from './$types';
+	import type { PassedUser } from '$lib/common/util';
 
-	export let data: PageData & LayoutData;
-	$: authStatus = data.signedIn;
+	export let data: PageData;
+
+	const user = getContext<PassedUser>('user');
 </script>
 
 <div class="flex flex-col">
@@ -15,7 +18,7 @@
 		<button type="button" role="tab" class="tab">Following</button>
 	</div>
 	<div class="border-b border-neutral">
-		{#if authStatus}
+		{#if $user?.id}
 			<Composer />
 		{:else}
 			<div class="m-4 flex justify-between items-center">
@@ -24,5 +27,5 @@
 			</div>
 		{/if}
 	</div>
-	<Timeline {authStatus} posts={data.posts} />
+	<Timeline posts={data.posts} />
 </div>
