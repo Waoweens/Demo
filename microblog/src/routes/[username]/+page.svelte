@@ -1,9 +1,14 @@
 <script lang="ts">
+	import Timeline from '$components/Timeline.svelte';
+	import { getContext } from 'svelte';
 	import type { PageData } from './$types';
-	import IconEdit from '~icons/material-symbols/edit'
-	import IconFollow from '~icons/material-symbols/person-add'
+	import IconEdit from '~icons/material-symbols/edit';
+	import IconFollow from '~icons/material-symbols/person-add';
+	import type { PassedUser } from '$lib/common/util';
 
 	export let data: PageData;
+
+	const user = getContext<PassedUser>('user');
 </script>
 
 <div>
@@ -15,14 +20,17 @@
 			</div>
 		</div>
 		<div class="flex gap-2 self-end relative mr-4 bottom-12 -mb-12">
-			<button class="btn btn-outline">
-				<IconEdit />
-				Edit Profile
-			</button>
-			<button class="btn btn-primary">
-				<IconFollow />
-				Follow
-			</button>
+			{#if $user?.id === data.user.id}
+				<button class="btn btn-outline">
+					<IconEdit />
+					Edit Profile
+				</button>
+			{:else}
+				<button class="btn btn-primary">
+					<IconFollow />
+					Follow
+				</button>
+			{/if}
 		</div>
 		<div class="flex flex-col m-4 gap-2">
 			<div class="flex flex-col">
@@ -37,4 +45,6 @@
 			<button type="button" role="tab" class="tab">Yeahs</button>
 		</div>
 	</div>
+	<Timeline posts={data.posts} />
+	<div class="text-center my-4">End of feed</div>
 </div>
