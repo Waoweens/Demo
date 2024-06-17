@@ -2,7 +2,9 @@ import db from '$lib/server/db';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params, locals }) => {
+	let userId = BigInt(0);
+	if (locals.user) userId = locals.user.id; 
 	console.log('params', params);
 
 	// fetch db for params.username
@@ -50,7 +52,7 @@ export const load: PageServerLoad = async ({ params }) => {
 			},
 			yeahs: {
 				where: {
-					userId: user.id
+					userId
 				},
 				select: {
 					id: true
