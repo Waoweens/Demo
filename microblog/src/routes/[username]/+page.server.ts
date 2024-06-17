@@ -25,7 +25,51 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	if (!user) error(404, 'User not found');
 
+	// fetch user's posts
+	const posts = await db.post.findMany({
+		orderBy: { createdAt: 'desc' },
+		select: {
+			id: true,
+			createdAt: true,
+			content: true,
+			author: {
+				select: {
+					id: true,
+					username: true,
+					displayName: true,
+					profileImage: true
+				}
+			},
+			_count: {
+				select: {
+					yeahs: true,
+					replies: true,
+					reposts: true,
+					quotes: true
+				}
+			},
+			yeahs: {
+				where: {
+					userId: user.id
+				},
+				select: {
+					id: true
+				}
+			}
+		},
+	});
+
+	const processedPosts: TimelinePost[] = posts.map((post) => ({
+		id: post.id,
+    	createdAt: post.createdAt,
+    	content: post.content,
+    	author: post.author,
+    	_count: post._count,
+		yeahed: post.yeahs.length > 0
+	}));
+
 	return {
-		user
+		user,
+		posts: processedPosts
 	}
 };
