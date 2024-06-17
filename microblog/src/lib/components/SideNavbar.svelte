@@ -1,14 +1,11 @@
 <script lang="ts">
 	import InfoIcon from '~icons/material-symbols/info-outline';
 	import HomeIcon from '~icons/material-symbols/home';
-	import SearchIcon from '~icons/material-symbols/search';
-	import ChatIcon from '~icons/material-symbols/chat-bubble';
 	import NotificationsIcon from '~icons/material-symbols/notifications';
 	import ProfileIcon from '~icons/material-symbols/person';
 	import SettingsIcon from '~icons/material-symbols/settings';
 	import LoginIcon from '~icons/material-symbols/login';
 	import LogoutIcon from '~icons/material-symbols/logout';
-	import Logout from './Logout.svelte';
 
 	export let authStatus: boolean = false;
 </script>
@@ -32,22 +29,10 @@
 					<span>Home</span>
 				</button>
 			</li>
-			<li class="disabled">
-				<button disabled type="button">
-					<SearchIcon class="text-xl" />
-					<span>Search</span>
-				</button>
-			</li>
 			<li class={!authStatus ? 'disabled' : ''}>
 				<button type="button">
 					<NotificationsIcon class="text-xl" />
 					<span>Notifications</span>
-				</button>
-			</li>
-			<li class="disabled">
-				<button disabled type="button">
-					<ChatIcon class="text-xl" />
-					<span>Chat</span>
 				</button>
 			</li>
 			<li class={!authStatus ? 'disabled' : ''}>
