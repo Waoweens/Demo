@@ -5,11 +5,18 @@
 	import SearchIcon from '~icons/material-symbols/search';
 	import '../app.css';
 	import type { LayoutData } from './$types';
+	import LogoutModal from '$components/LogoutModal.svelte';
 
 	export let data: LayoutData;
 
+	$: console.log(data);
+
 	$: authStatus = data.signedIn;
+	$: avatar = data
 </script>
+
+<!--Modals-->
+<LogoutModal />
 
 <div class="flex flex-col h-screen">
 	<header>
@@ -19,12 +26,15 @@
 	</header>
 	<div class="flex-1 flex h-full justify-center">
 		<div class="flex w-full max-w-6xl">
+			<!--Left sidebar-->
 			<aside class="hidden md:block basis-1/5 p-2">
 				<SideNavbar {authStatus} />
 			</aside>
+			<!--Main content-->
 			<main class="flex-1 md:border-x border-neutral">
 				<slot />
 			</main>
+			<!--Right sidebar-->
 			<aside class="hidden md:block basis-1/5 p-2">
 				<div class="flex flex-col gap-2">
 					<label class="input input-bordered flex items-center gap-2">
