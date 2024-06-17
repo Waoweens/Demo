@@ -5,7 +5,12 @@ export const load: LayoutServerLoad = async (event) => {
 
 	return {
 		signedIn: true,
+		userId: event.locals.user.id,
 		username: event.locals.user.username,
-		userId: event.locals.user.id
+		createdAt: event.locals.user.createdAt,
+		displayName: event.locals.user.displayName,
+		bio: event.locals.user.bio,
+		profileImage: event.locals.user.profileImage,
+		bannerImage: event.locals.user.bannerImage
 	};
 };
