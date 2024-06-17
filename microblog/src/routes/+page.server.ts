@@ -48,8 +48,6 @@ export const load = async (event) => {
 		yeahed: post.yeahs.length > 0
 	}));
 
-	console.log(processedPosts)
-
 	return {
 		posts: processedPosts
 	};
