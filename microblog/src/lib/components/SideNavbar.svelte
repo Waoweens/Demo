@@ -6,6 +6,7 @@
 	import SettingsIcon from '~icons/material-symbols/settings';
 	import LoginIcon from '~icons/material-symbols/login';
 	import LogoutIcon from '~icons/material-symbols/logout';
+	import LogoutButton from './LogoutButton.svelte';
 
 	export let authStatus: boolean = false;
 </script>
@@ -52,10 +53,10 @@
 		</li>
 		{#if authStatus}
 			<li>
-				<Logout>
+				<LogoutButton>
 					<LogoutIcon class="text-xl" />
 					<span>Logout</span>
-				</Logout>
+				</LogoutButton>
 			</li>
 		{:else}
 			<li>
