@@ -19,7 +19,7 @@
 	</div>
 	<div class="border-b border-neutral">
 		{#if $user?.id}
-			<Composer />
+			<Composer method="post" />
 		{:else}
 			<div class="m-4 flex justify-between items-center">
 				<p class="text-2xl">Sign in to post</p>

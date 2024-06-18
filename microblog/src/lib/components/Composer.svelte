@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-
+	export let method: 'post' | 'reply';
 	export let controls = false;
 	let content: string = '';
 	const characterLimit = 280;
@@ -20,14 +20,14 @@
 </script>
 
 <section class="p-2">
-	<form use:enhance action="/?/compose" method="post">
+	<form use:enhance action="/compose?/{method}" method="post">
 		<textarea
 			on:focus={showControls}
 			on:input={textAreaInput}
 			bind:value={content}
 			class="textarea w-full resize-none text-xl"
 			name="content"
-			placeholder="What's happening?"
+			placeholder={method === 'post' ? 'What\'s happening?' : 'Reply to this post...'}
 		/>
 		{#if controls}
 			<div class="flex justify-between">
