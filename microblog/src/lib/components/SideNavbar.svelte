@@ -32,13 +32,13 @@
 					<span>Home</span>
 				</button>
 			</li>
-			<li class={!$user?.id ? 'disabled' : ''}>
+			<li class={!$user?.id ? 'disabled ' : ''}>
 				<button type="button">
 					<NotificationsIcon class="text-xl" />
 					<span>Notifications</span>
 				</button>
 			</li>
-			<li class={!$user?.id ? 'disabled' : ''}>
+			<li class={!$user?.id ? 'disabled ' : ''}>
 				<button type="button">
 					<ProfileIcon class="text-xl" />
 					<span>Profile</span>
@@ -47,7 +47,7 @@
 		</ul>
 	</div>
 	<ul class="menu gap-4">
-		<li class={!$user?.id ? 'disabled' : ''}>
+		<li class={!$user?.id ? 'disabled ' : ''}>
 			<button type="button" disabled={!$user?.id}>
 				<SettingsIcon class="text-xl" />
 				<span>Settings</span>
