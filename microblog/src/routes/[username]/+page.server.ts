@@ -1,6 +1,7 @@
 import db from '$lib/server/db';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import type { TimelinePost } from '$lib/common/util';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	let userId = BigInt(0);
@@ -29,6 +30,9 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	// fetch user's posts
 	const posts = await db.post.findMany({
+		where: {
+			authorId: user.id
+		},
 		orderBy: { createdAt: 'desc' },
 		select: {
 			id: true,
