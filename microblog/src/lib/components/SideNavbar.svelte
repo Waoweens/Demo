@@ -9,8 +9,11 @@
 	import LogoutButton from './LogoutButton.svelte';
 	import { getContext } from 'svelte';
 	import { type PassedUser } from '$lib/common/util';
+	import { page } from '$app/stores';
 
 	const user = getContext<PassedUser>('user');
+
+	$: console.log($page.url.pathname)
 </script>
 
 <div class="h-full flex flex-col justify-between py-4">
@@ -27,31 +30,31 @@
 		{/if}
 		<ul class="menu gap-4">
 			<li>
-				<button type="button" class="active">
+				<a href="/" class={$page.url.pathname === '/' ? 'active ' : ''}>
 					<HomeIcon class="text-xl" />
 					<span>Home</span>
-				</button>
+				</a>
 			</li>
-			<li class={!$user?.id ? 'disabled ' : ''}>
-				<button type="button">
+			<li class={!$user?.id ? 'disabled' : ''}>
+				<a href="/notifications" class={$page.url.pathname === '/notifications' ? 'active' : ''}>
 					<NotificationsIcon class="text-xl" />
 					<span>Notifications</span>
-				</button>
+				</a>
 			</li>
 			<li class={!$user?.id ? 'disabled ' : ''}>
-				<button type="button">
+				<a href="/{$user?.username}" class={$page.url.pathname === `/${$user?.username}` ? 'active ' : ''}>
 					<ProfileIcon class="text-xl" />
 					<span>Profile</span>
-				</button>
+				</a>
 			</li>
 		</ul>
 	</div>
 	<ul class="menu gap-4">
 		<li class={!$user?.id ? 'disabled ' : ''}>
-			<button type="button" disabled={!$user?.id}>
+			<a href="/settings" class={$page.url.pathname === `/${$user?.username}` ? 'active ' : ''}>
 				<SettingsIcon class="text-xl" />
 				<span>Settings</span>
-			</button>
+			</a>
 		</li>
 		{#if $user?.id}
 			<li>
