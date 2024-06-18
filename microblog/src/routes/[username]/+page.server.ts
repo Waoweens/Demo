@@ -1,5 +1,5 @@
 import db from '$lib/server/db';
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { TimelinePost } from '$lib/common/util';
 
@@ -7,11 +7,17 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	let userId = BigInt(0);
 	if (locals.user) userId = locals.user.id; 
 	console.log('params', params);
+	let username = params.username;
+
+	if (username === "profile") {
+		if (!locals.user) error(401, 'Unauthorized');
+		redirect(302, `/${locals.user.username}`);
+	};
 
 	// fetch db for params.username
 	const user = await db.user.findUnique({
 		where: {
-			username: params.username
+			username
 		},
 		select: {
 			id: true,
