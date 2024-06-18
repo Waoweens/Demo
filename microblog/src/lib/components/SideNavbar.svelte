@@ -51,7 +51,7 @@
 	</div>
 	<ul class="menu gap-4">
 		<li class={!$user?.id ? 'disabled ' : ''}>
-			<a href="/settings" class={$page.url.pathname === `/${$user?.username}` ? 'active ' : ''}>
+			<a href="/settings" class={$page.url.pathname === `/settings` ? 'active ' : ''}>
 				<SettingsIcon class="text-xl" />
 				<span>Settings</span>
 			</a>
