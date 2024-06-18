@@ -25,7 +25,7 @@
 			on:focus={showControls}
 			on:input={textAreaInput}
 			bind:value={content}
-			class="textarea w-full resize-none text-xl"
+			class="textarea w-full resize-none text-xl {method === 'reply' ? 'h-3' : ''}"
 			name="content"
 			placeholder={method === 'post' ? 'What\'s happening?' : 'Reply to this post...'}
 		/>
