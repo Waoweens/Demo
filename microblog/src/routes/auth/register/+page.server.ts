@@ -47,7 +47,11 @@ export const actions: Actions = {
 			data: {
 				id: userId,
 				username,
-				passwordHash
+				passwordHash,
+				displayName: `Display Name for @${username}`,
+				bio: `Temporary bio for @${username}`,
+				profileImage: 'https://placehold.co/400',
+				bannerImage: 'https://placehold.co/1500x500'
 			}
 		});
 
@@ -58,6 +62,6 @@ export const actions: Actions = {
 			...sessionCookie.attributes
 		});
 
-		return redirect(302, `/user/${userId}/edit`)
+		return redirect(302, `/auth/redirect-root`)
 	}
 }
