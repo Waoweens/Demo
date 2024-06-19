@@ -29,7 +29,7 @@
 	<div class="flex-1 flex h-full justify-center overflow-hidden">
 		<div class="flex w-full max-w-6xl overflow-hidden">
 			<!--Left sidebar-->
-			<aside class="hidden md:block basis-1/5 p-2 overflow-auto">
+			<aside class="hidden md:block basis-1/5 p-2">
 				<SideNavbar />
 			</aside>
 			<!--Main content-->
@@ -37,7 +37,7 @@
 				<slot />
 			</main>
 			<!--Right sidebar-->
-			<aside class="hidden md:block basis-1/5 p-2 overflow-auto">
+			<aside class="hidden md:block basis-1/5 p-2">
 				<RightBar />
 			</aside>
 		</div>
