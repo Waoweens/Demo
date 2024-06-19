@@ -6,7 +6,7 @@
 	export let title: string = 'Back'
 </script>
 
-<div class="sticky top-0 bg-base-100 z-50">
+<div class="sticky top-0 bg-base-100 z-50 border-b border-neutral">
 	<noscript>
 		<div class="p-2 bg-warning text-warning-content flex gap-2 items-center">
 			<IconWarning class="text-2xl" />
