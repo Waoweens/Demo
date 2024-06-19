@@ -28,5 +28,30 @@ export const actions: Actions = {
 			status: 200,
 			message: 'Post deleted',
 		};
+	},
+	yeah: async ({ request, locals }) => {
+		let postId = BigInt(0);
+		if (!locals.user) return fail(401);
+
+		const data = await request.formData();
+		postId = BigInt(data.get('postId') as string);
+
+		if (!postId) return fail(400, { error: 'Missing postId' });
+
+		const unyeah = await db.yeah.delete({
+			where: {
+				userId_postId: {
+					userId: locals.user.id,
+					postId
+				}
+			}
+		});
+
+		if (!unyeah) return fail(500, { error: 'Failed to unyeah post' });
+
+		return {
+			status: 200,
+			yeah: unyeah
+		}
 	}
 };

@@ -5,6 +5,7 @@
 	import YeahFilledIcon from '~icons/material-symbols/add-reaction';
 	import ShareIcon from '~icons/material-symbols/share';
 	import type { TimelinePost } from '$lib/common/util';
+	import { enhance } from '$app/forms';
 
 	export let post: TimelinePost;
 
@@ -54,9 +55,11 @@
 			</button>
 		</div>
 	</div>
-	<div class="flex items-center">
+	<form use:enhance method="post" action="/submit/{post.yeahed ? 'delete' : 'create'}?/yeah" class="flex items-center">
+		<input type="hidden" class="hidden" name="postId" value={post.id} />
 		<div class="tooltip tooltip-bottom" data-tip={post.yeahed ? 'Unyeah' : 'Yeah!'}>
 			<button
+				type="submit"
 				class="btn btn-sm btn-ghost"
 				on:click|stopPropagation={() => yeah(post)}
 				on:keydown|stopPropagation
@@ -69,7 +72,7 @@
 				<span>{post._count.yeahs}</span>
 			</button>
 		</div>
-	</div>
+	</form>
 	<div class="flex items-center">
 		<div class="tooltip tooltip-bottom" data-tip="Share">
 			<button

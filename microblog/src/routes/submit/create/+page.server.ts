@@ -23,5 +23,29 @@ export const actions: Actions = {
 			status: 201,
 			post
 		}
+	},
+	yeah: async ({ request, locals }) => {
+		let postId = BigInt(0);
+		if (!locals.user) return fail(401);
+
+		const data = await request.formData();
+		postId = BigInt(data.get('postId') as string);
+
+		if (!postId) return fail(400, { error: 'Missing postId' });
+
+		const yeah = await db.yeah.create({
+			data: {
+				id: snowflake.generate(),
+				userId: locals.user.id,
+				postId
+			}
+		});
+
+		if (!yeah) return fail(500, { error: 'Failed to yeah post' });
+
+		return {
+			status: 201,
+			yeah
+		}
 	}
 }
