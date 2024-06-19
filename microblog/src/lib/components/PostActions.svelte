@@ -55,34 +55,30 @@
 		</div>
 	</div>
 	<div class="flex items-center">
-		<div>
-			<div class="tooltip tooltip-bottom" data-tip={post.yeahed ? 'Unyeah' : 'Yeah!'}>
-				<button
-					class="btn btn-sm btn-ghost"
-					on:click|stopPropagation={() => yeah(post)}
-					on:keydown|stopPropagation
-				>
-					{#if post.yeahed}
-						<YeahFilledIcon class="text-xl text-success" />
-					{:else}
-						<YeahIcon class="text-xl" />
-					{/if}
-					<span>{post._count.yeahs}</span>
-				</button>
-			</div>
+		<div class="tooltip tooltip-bottom" data-tip={post.yeahed ? 'Unyeah' : 'Yeah!'}>
+			<button
+				class="btn btn-sm btn-ghost"
+				on:click|stopPropagation={() => yeah(post)}
+				on:keydown|stopPropagation
+			>
+				{#if post.yeahed}
+					<YeahFilledIcon class="text-xl text-success" />
+				{:else}
+					<YeahIcon class="text-xl" />
+				{/if}
+				<span>{post._count.yeahs}</span>
+			</button>
 		</div>
 	</div>
 	<div class="flex items-center">
-		<div>
-			<div class="tooltip tooltip-bottom" data-tip="Share">
-				<button
-					class="btn btn-square btn-sm btn-ghost"
-					on:click|stopPropagation={() => share(post)}
-					on:keydown|stopPropagation
-				>
-					<ShareIcon class="text-xl" />
-				</button>
-			</div>
+		<div class="tooltip tooltip-bottom" data-tip="Share">
+			<button
+				class="btn btn-square btn-sm btn-ghost"
+				on:click|stopPropagation={() => share(post)}
+				on:keydown|stopPropagation
+			>
+				<ShareIcon class="text-xl" />
+			</button>
 		</div>
 	</div>
 </footer>
