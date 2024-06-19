@@ -10,7 +10,7 @@
 	import { setContext } from 'svelte';
 	import RightBar from '$components/RightBar.svelte';
 	import { beforeNavigate } from '$app/navigation';
-	import { previousPage } from '$lib/stores/page';
+	import { pageTitle, previousPage } from '$lib/stores/page';
 
 	export let data: LayoutData;
 
@@ -19,9 +19,14 @@
 	setContext('user', user);
 
 	beforeNavigate(({ from }) => {
+		pageTitle.set('');
 		previousPage.set(from?.url.pathname ?? '/');
 	})
 </script>
+
+<svelte:head>
+	<title>{$pageTitle === '' ? 'Unknown page' : $pageTitle} &mdash; Microblog</title>
+</svelte:head>
 
 <!--Modals-->
 <LogoutModal />
