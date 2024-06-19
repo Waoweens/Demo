@@ -1,8 +1,8 @@
 <script lang="ts">
 	import BackButton from "$components/BackButton.svelte";
 	import PostActions from "$components/PostActions.svelte";
-import PostHeader from "$components/PostHeader.svelte";
-import type { PageData } from "./$types";
+	import PostHeader from "$components/PostHeader.svelte";
+	import type { PageData } from "./$types";
 
 	export let data: PageData;
 </script>
