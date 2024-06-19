@@ -9,12 +9,18 @@
 	import type { DatabaseUserAttributes } from '$lib/common/util';
 	import { setContext } from 'svelte';
 	import RightBar from '$components/RightBar.svelte';
+	import { beforeNavigate } from '$app/navigation';
+	import { previousPage } from '$lib/stores/page';
 
 	export let data: LayoutData;
 
 	const user = writable<DatabaseUserAttributes | undefined>();
 	$: user.set(data.user);
 	setContext('user', user);
+
+	beforeNavigate(({ from }) => {
+		previousPage.set(from?.url.pathname ?? '/');
+	})
 </script>
 
 <!--Modals-->
