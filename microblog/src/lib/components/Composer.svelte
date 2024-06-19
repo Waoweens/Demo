@@ -20,7 +20,7 @@
 </script>
 
 <section class="p-2">
-	<form use:enhance action="/submit?/{method}" method="post">
+	<form use:enhance action="/submit/create?/{method}" method="post">
 		<textarea
 			on:focus={showControls}
 			on:input={textAreaInput}
