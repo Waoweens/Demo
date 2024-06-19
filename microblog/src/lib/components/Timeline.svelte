@@ -10,7 +10,6 @@
 	let selection: string = '';
 
 	let moreOpen: { [key: string]: boolean } = {};
-	$: console.log(moreOpen);
 
 	function openPost(event: Event, post: TimelinePost) {
 		if (selection.length > 0) {
