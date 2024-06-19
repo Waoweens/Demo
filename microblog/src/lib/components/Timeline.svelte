@@ -9,8 +9,14 @@
 	export let posts: TimelinePost[] = [];
 	let selection: string = '';
 
+	let moreOpen: boolean;
+	$: console.log(moreOpen);
+
 	function openPost(event: Event, post: TimelinePost) {
 		if (selection.length > 0) {
+			return;
+		}
+		if (moreOpen) {
 			return;
 		}
 		if (event instanceof MouseEvent) {
@@ -41,7 +47,7 @@
 				on:keydown={(event) => openPost(event, post)}
 				class="flex flex-col gap-2 p-4 border-b border-neutral"
 			>
-				<PostHeader {post} />
+				<PostHeader {post} bind:open={moreOpen} />
 				<p>
 					{post.content}
 				</p>

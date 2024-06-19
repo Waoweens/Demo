@@ -11,6 +11,16 @@
 	export let post: TimelinePost;
 	export let open: boolean = false;
 
+	function moreFocus() {
+		open = true;
+	}
+
+	function moreBlur() {
+		setTimeout(() => {
+			open = false;
+		}, 100);
+	}
+
 	const user = getContext<PassedUser>('user');
 </script>
 
@@ -60,8 +70,8 @@
 					class="btn btn-circle btn-ghost"
 					on:click|stopPropagation
 					on:keydown|stopPropagation
-					on:focus={() => open = true}
-					on:blur={() => open = false}
+					on:focus={moreFocus}
+					on:blur={moreBlur}
 				>
 					<IconMore class="text-xl" />
 				</div>
