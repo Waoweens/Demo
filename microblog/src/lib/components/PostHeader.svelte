@@ -9,6 +9,7 @@
 	import { enhance } from '$app/forms';
 
 	export let post: TimelinePost;
+	export let open: boolean = false;
 
 	const user = getContext<PassedUser>('user');
 </script>
@@ -59,6 +60,8 @@
 					class="btn btn-circle btn-ghost"
 					on:click|stopPropagation
 					on:keydown|stopPropagation
+					on:focus={() => open = true}
+					on:blur={() => open = false}
 				>
 					<IconMore class="text-xl" />
 				</div>
