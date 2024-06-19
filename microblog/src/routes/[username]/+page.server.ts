@@ -6,8 +6,7 @@ import type { TimelinePost } from '$lib/common/util';
 export const load: PageServerLoad = async ({ params, locals }) => {
 	let userId = BigInt(0);
 	if (locals.user) userId = locals.user.id; 
-	console.log('params', params);
-	let username = params.username;
+	const username = params.username;
 
 	if (username === "profile") {
 		if (!locals.user) error(401, 'Unauthorized');
@@ -30,7 +29,6 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		}
 	});
 
-	console.log('user', user);
 
 	if (!user) error(404, 'User not found');
 

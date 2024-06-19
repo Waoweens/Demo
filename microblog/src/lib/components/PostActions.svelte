@@ -8,26 +8,6 @@
 	import { enhance } from '$app/forms';
 
 	export let post: TimelinePost;
-
-	function reply(post: TimelinePost) {
-		console.log('Reply');
-	}
-
-	function repost(post: TimelinePost) {
-		console.log('Repost');
-	}
-
-	function yeah(post: TimelinePost) {
-		if (post.yeahed) {
-			console.log('Unyeah');
-		} else {
-			console.log('Yeah!');
-		}
-	}
-
-	function share(post: TimelinePost) {
-		console.log('Share');
-	}
 </script>
 
 <footer class="flex justify-between">
@@ -35,7 +15,7 @@
 		<div class="tooltip tooltip-bottom" data-tip="Reply">
 			<button
 				class="btn btn-sm btn-ghost"
-				on:click|stopPropagation={() => reply(post)}
+				on:click|stopPropagation
 				on:keydown|stopPropagation
 			>
 				<ReplyIcon class="text-xl" />
@@ -47,7 +27,7 @@
 		<div class="tooltip tooltip-bottom" data-tip="Repost">
 			<button
 				class="btn btn-sm btn-ghost"
-				on:click|stopPropagation={() => repost(post)}
+				on:click|stopPropagation
 				on:keydown|stopPropagation
 			>
 				<RepostIcon class="text-xl" />
@@ -61,7 +41,7 @@
 			<button
 				type="submit"
 				class="btn btn-sm btn-ghost"
-				on:click|stopPropagation={() => yeah(post)}
+				on:click|stopPropagation
 				on:keydown|stopPropagation
 			>
 				{#if post.yeahed}
@@ -77,7 +57,7 @@
 		<div class="tooltip tooltip-bottom" data-tip="Share">
 			<button
 				class="btn btn-square btn-sm btn-ghost"
-				on:click|stopPropagation={() => share(post)}
+				on:click|stopPropagation
 				on:keydown|stopPropagation
 			>
 				<ShareIcon class="text-xl" />

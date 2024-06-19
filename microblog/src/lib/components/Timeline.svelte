@@ -11,17 +11,14 @@
 
 	function openPost(event: Event, post: TimelinePost) {
 		if (selection.length > 0) {
-			console.log('Selection exists', selection);
 			return;
 		}
 		if (event instanceof MouseEvent) {
-			console.log('openPost Mouse event');
 			goto(`/${post.author.username}/post/${post.id}`);
 		}
 
 		if (event instanceof KeyboardEvent) {
 			if (event.key === 'Enter' || event.key === ' ') {
-				console.log('openPost Keyboard event');
 				goto(`/${post.author.username}/post/${post.id}`);
 			}
 		}	
