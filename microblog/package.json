@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@iconify-json/material-symbols": "^1.1.82",
+    "@node-rs/argon2": "^1.8.3",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/adapter-node": "^5.2.0",
     "@sveltejs/kit": "^2.0.0",
