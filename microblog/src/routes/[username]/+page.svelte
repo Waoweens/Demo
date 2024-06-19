@@ -6,15 +6,18 @@
 	import IconFollow from '~icons/material-symbols/person-add';
 	import type { PassedUser } from '$lib/common/util';
 	import BackButton from '$components/BackButton.svelte';
+	import { pageTitle } from '$lib/stores/page';
 
 	export let data: PageData;
 
 	const user = getContext<PassedUser>('user');
+
+	pageTitle.set(`${data.user.displayName} (@${data.user.username})`)
 </script>
 
 <div>
+	<BackButton />
 	<div class="flex flex-col border-b border-neutral">
-		<BackButton />
 		<img class="aspect-[3/1] w-full" src={data.user.bannerImage} alt="user banner" />
 		<div class="avatar ml-8 bottom-16 -mb-16">
 			<div class="w-32 rounded-full border-4 border-base-100">
