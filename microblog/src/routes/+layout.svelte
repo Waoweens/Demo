@@ -19,7 +19,6 @@
 	setContext('user', user);
 
 	beforeNavigate(({ from }) => {
-		pageTitle.set('');
 		previousPage.set(from?.url.pathname ?? '/');
 	})
 </script>
