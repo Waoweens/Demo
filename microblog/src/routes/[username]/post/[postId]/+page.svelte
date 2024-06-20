@@ -12,7 +12,7 @@
 		ogTitle: `${data.post.author.displayName} (@${data.post.author.username})`,
 		description: data.post.content,
 		twImage: data.post.author.profileImage,
-		date: data.post.createdAt.toString()
+		date: data.post.createdAt.toISOString()
 	};
 
 </script>

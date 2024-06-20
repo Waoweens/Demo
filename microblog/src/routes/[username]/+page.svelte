@@ -15,7 +15,7 @@
 		ogTitle: `${data.user.displayName} (@${data.user.username})`,
 		description: data.user.bio,
 		twImage: data.user.profileImage,
-		date: data.user.createdAt.toString()
+		date: data.user.createdAt.toISOString()
 	};
 
 	const user = getContext<PassedUser>('user');
