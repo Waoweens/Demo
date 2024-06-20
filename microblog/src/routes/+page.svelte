@@ -16,7 +16,7 @@
 </script>
 
 <div class="flex flex-col">
-	<div role="tablist" class="tabs tabs-lg tabs-bordered [--tab-border:0.2rem]">
+	<div role="tablist" class="sticky top-0 bg-base-100 z-50 tabs tabs-lg tabs-bordered [--tab-border:0.2rem]">
 		<button type="button" role="tab" class="tab tab-active tab-custom-color">Chronological</button>
 		<button type="button" role="tab" class="tab">Following</button>
 	</div>
