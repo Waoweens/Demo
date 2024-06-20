@@ -48,6 +48,6 @@
 	<button class="btn btn-primary" type="submit">Sign up</button>
 	<p class="text-center">
 		Already have an account?
-		<a href="/auth/login">Sign in</a>
+		<a href="/auth/login" class="link">Sign in</a>
 	</p>
 </form>
