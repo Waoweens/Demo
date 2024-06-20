@@ -60,7 +60,7 @@ export const load: PageServerLoad = async ({ params, locals  }) => {
 			title: `${post.author.displayName}: "${post.content}"`,
 			description: post.content,
 			ogType: 'article',
-			ogTitle: `${post.author.displayName} (${post.author.username})`,
+			ogTitle: `Post by ${post.author.displayName} (@${post.author.username})`,
 			ogDescription: post.content,
 			articlePublishedTime: post.createdAt.toISOString(),
 			twitterCard: 'summary',
