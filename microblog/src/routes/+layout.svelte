@@ -11,7 +11,7 @@
 	import RightBar from '$components/RightBar.svelte';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { pageMeta, pageHistory, isGoingBack } from '$lib/stores/page';
-	import { navigating } from '$app/stores';
+	import { navigating, page } from '$app/stores';
 
 	export let data: LayoutData;
 
@@ -28,23 +28,23 @@
 </script>
 
 <svelte:head>
-	<title>{$pageMeta.pageTitle === '' ? 'Unknown page' : $pageMeta.pageTitle} &mdash; Microblog</title>
+	<title>{!$pageMeta.pageTitle ? 'Unknown page' : $pageMeta.pageTitle} &mdash; Microblog</title>
 	<meta name="application-name" content="Microblog">
 	<meta name="generator" content="MicroblogWeb">
-	<meta name="description" content="{$pageMeta.description}">
-	<meta name="article:published_time" content="{$pageMeta.date}">
+	<meta name="description" content={$pageMeta.description ?? ''}>
+	<meta name="article:published_time" content={$pageMeta.date ?? ''}>
 
 	<!-- Open Graph -->
 	<meta property="og:site_name" content="Microblog">
 	<meta property="og:type" content="article">
-	<meta property="og:url" content="{$pageMeta.url}">
-	<meta property="og:title" content="{$pageMeta.ogTitle}">
+	<meta property="og:url" content={$pageMeta.url ?? $page.url.toString()}>
+	<meta property="og:title" content={$pageMeta.ogTitle ?? 'Microblog'}>
 	<meta property="og:description" content={$pageMeta.description ?? ''}>
 
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:label1" content="Posted At">
-	<meta name="twitter:value1" content="{$pageMeta.date}">
+	<meta name="twitter:value1" content={$pageMeta.date ?? ''}>
 </svelte:head>
 
 <!--Modals-->
