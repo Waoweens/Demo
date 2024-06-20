@@ -12,12 +12,10 @@
 	let moreOpen: { [key: string]: boolean } = {};
 
 	function openPost(event: Event, post: TimelinePost) {
-		if (selection.length > 0) {
-			return;
-		}
-		if (Object.values(moreOpen).some((v) => v)) {
-			return;
-		}
+		if (selection.length > 0) return;
+		if (Object.values(moreOpen).some((v) => v)) return;
+		if ((event.target as HTMLElement).closest('.clickableChild')) return;
+
 		if (event instanceof MouseEvent) {
 			goto(`/${post.author.username}/post/${post.id}`);
 		}

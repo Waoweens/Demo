@@ -26,7 +26,7 @@
 
 <header class="flex justify-between">
 	<div class="flex items-center gap-2">
-		<a href="/{post.author.username}" on:click|stopPropagation on:keydown|stopPropagation>
+		<a href="/{post.author.username}" class="clickableChild">
 			<div class="avatar">
 				<div class="w-12 rounded-full">
 					<img src={post.author.profileImage} alt="Avatar" />
@@ -34,42 +34,27 @@
 			</div>
 		</a>
 		<div>
-			<a
-				class="font-bold"
-				href="/{post.author.username}"
-				on:click|stopPropagation
-				on:keydown|stopPropagation
-			>
+			<a href="/{post.author.username}" class="clickableChild font-bold">
 				<span class="font-bold hover:link">{post.author.displayName}</span>
 			</a>
 			<div class="text-slate-600 dark:text-slate-300">
-				<a
-					href="/{post.author.username}"
-					class="hover:link"
-					on:click|stopPropagation
-					on:keydown|stopPropagation>@{post.author.username}</a
-				>
+				<a href="/{post.author.username}" class="clickableChild hover:link">
+					@{post.author.username}
+				</a>
 				<span role="separator">—</span>
-				<a
-					href="/{post.author.username}/post/{post.id}"
-					class="hover:link"
-					on:click|stopPropagation
-					on:keydown|stopPropagation
-				>
+				<a href="/{post.author.username}/post/{post.id}" class="clickableChild hover:link">
 					<RelativeTime date={post.createdAt} />
 				</a>
 			</div>
 		</div>
 	</div>
-	<div>
+	<div class="clickableChild">
 		<div class="dropdown dropdown-end">
 			<div class="tooltip tooltip-bottom" data-tip="More">
 				<div
 					tabindex="0"
 					role="button"
-					class="btn btn-circle btn-ghost"
-					on:click|stopPropagation
-					on:keydown|stopPropagation
+					class="clickableChild btn btn-circle btn-ghost"
 					on:focus={moreFocus}
 					on:blur={moreBlur}
 				>
@@ -80,15 +65,10 @@
 			<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
 				{#if post.author.id === $user?.id}
 					<form method="post" use:enhance action="/submit/delete?/post">
-						<input type="hidden" class="hidden" name="authorId" value={post.author.id}>
-						<input type="hidden" class="hidden" name="postId" value={post.id}>
+						<input type="hidden" class="hidden" name="authorId" value={post.author.id} />
+						<input type="hidden" class="hidden" name="postId" value={post.id} />
 						<li>
-							<button
-								type="submit"
-								class="btn-outline btn-error flex"
-								on:click|stopPropagation
-								on:keydown|stopPropagation
-							>
+							<button type="submit" class="btn-outline btn-error flex">
 								<IconDelete class="text-xl" />
 								Delete
 							</button>
@@ -97,14 +77,14 @@
 				{/if}
 				{#if post.author.id !== $user?.id}
 					<li>
-						<button on:click|stopPropagation on:keydown|stopPropagation>
+						<button>
 							<IconReport class="text-xl" />
 							Report
 						</button>
 					</li>
 				{/if}
 				<li>
-					<button on:click|stopPropagation on:keydown|stopPropagation>
+					<button>
 						<IconInfo class="text-xl" />
 						Info
 					</button>

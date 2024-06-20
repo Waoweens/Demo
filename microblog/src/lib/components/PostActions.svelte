@@ -13,11 +13,7 @@
 <footer class="flex justify-between">
 	<div class="flex items-center">
 		<div class="tooltip tooltip-bottom" data-tip="Reply">
-			<button
-				class="btn btn-sm btn-ghost"
-				on:click|stopPropagation
-				on:keydown|stopPropagation
-			>
+			<button class="clickableChild btn btn-sm btn-ghost">
 				<ReplyIcon class="text-xl" />
 				<span>{post._count.replies}</span>
 			</button>
@@ -25,25 +21,21 @@
 	</div>
 	<div class="flex items-center">
 		<div class="tooltip tooltip-bottom" data-tip="Repost">
-			<button
-				class="btn btn-sm btn-ghost"
-				on:click|stopPropagation
-				on:keydown|stopPropagation
-			>
+			<button class="clickableChild btn btn-sm btn-ghost">
 				<RepostIcon class="text-xl" />
 				<span>{post._count.reposts + post._count.quotes}</span>
 			</button>
 		</div>
 	</div>
-	<form use:enhance method="post" action="/submit/{post.yeahed ? 'delete' : 'create'}?/yeah" class="flex items-center">
+	<form
+		use:enhance
+		method="post"
+		action="/submit/{post.yeahed ? 'delete' : 'create'}?/yeah"
+		class="flex items-center"
+	>
 		<input type="hidden" class="hidden" name="postId" value={post.id} />
 		<div class="tooltip tooltip-bottom" data-tip={post.yeahed ? 'Unyeah' : 'Yeah!'}>
-			<button
-				type="submit"
-				class="btn btn-sm btn-ghost"
-				on:click|stopPropagation
-				on:keydown|stopPropagation
-			>
+			<button type="submit" class="clickableChild btn btn-sm btn-ghost">
 				{#if post.yeahed}
 					<YeahFilledIcon class="text-xl text-success" />
 				{:else}
@@ -55,11 +47,7 @@
 	</form>
 	<div class="flex items-center">
 		<div class="tooltip tooltip-bottom" data-tip="Share">
-			<button
-				class="btn btn-square btn-sm btn-ghost"
-				on:click|stopPropagation
-				on:keydown|stopPropagation
-			>
+			<button class="clickableChild btn btn-square btn-sm btn-ghost">
 				<ShareIcon class="text-xl" />
 			</button>
 		</div>
