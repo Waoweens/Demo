@@ -19,11 +19,9 @@
 	setContext('user', user);
 
 	beforeNavigate(({ from }) => {
-		console.log('beforeNavigate', $pageHistory)
 		if (!$isNavigating) pageHistory.set([...get(pageHistory), from?.url.pathname ?? '/']);
 	})
 	afterNavigate(() => {
-		console.log('afterNavigate', $pageHistory)
 		if ($isNavigating) $isNavigating = false;
 	});
 </script>
