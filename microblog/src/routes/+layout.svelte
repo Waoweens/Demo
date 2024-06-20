@@ -28,32 +28,32 @@
 </script>
 
 <svelte:head>
-	<title>{$page.data.meta?.title} &mdash; Microblog</title>
-	<meta name="application-name" content={$page.data.meta?.applicationName} />
-	<meta name="generator" content={$page.data.meta?.generator} />
+	<title>{$page.data.meta?.title ?? 'Unknown page'} &mdash; Microblog</title>
+	<meta name="application-name" content={$page.data.meta?.applicationName ?? 'Microblog'} />
+	<meta name="generator" content={$page.data.meta?.generator ?? 'A human generated this app'} />
 	<meta name="description" content={$page.data.meta?.description} />
 	
 	<!-- Open Graph -->
-	<meta property="og:site_name" content={$page.data.meta?.ogSiteName} />
-	<meta property="og:type" content={$page.data.meta?.ogType} />
-	<meta property="og:url" content={$page.data.meta?.ogUrl} />
-	<meta property="og:title" content={$page.data.meta?.ogTitle} />
-	<meta property="og:description" content={$page.data.meta?.ogDescription} />
-	<meta property="og:image" content={$page.data.meta?.ogImage} />
+	<meta property="og:site_name" content={$page.data.meta?.ogSiteName ?? 'Microblog'} />
+	<meta property="og:type" content={$page.data.meta?.ogType ?? 'website'} />
+	<meta property="og:url" content={$page.data.meta?.ogUrl ?? $page.url.toString()} />
+	<meta property="og:title" content={$page.data.meta?.ogTitle ?? 'Microblog'} />
+	<meta property="og:description" content={$page.data.meta?.ogDescription ?? ''} />
+	<meta property="og:image" content={$page.data.meta?.ogImage ?? ''} />
 
 	<!-- og:type article -->
-	<meta name="article:author" content={$page.data.meta?.articleAuthor} />
-	<meta name="article:published_time" content={$page.data.meta?.articlePublishedTime} />
+	<meta name="article:author" content={$page.data.meta?.articleAuthor ?? ''} />
+	<meta name="article:published_time" content={$page.data.meta?.articlePublishedTime ?? ''} />
 
 	<!-- og:type profile -->
-	<meta property="profile:username" content={$page.data.meta?.profileUsername} />
+	<meta property="profile:username" content={$page.data.meta?.profileUsername ?? ''} />
 
 	<!-- Twitter Card -->
-	<meta name="twitter:card" content={$page.data.meta?.twitterCard} />
-	<meta name="twitter:image" content={$page.data.meta?.twitterImage} />
+	<meta name="twitter:card" content={$page.data.meta?.twitterCard ?? ''} />
+	<meta name="twitter:image" content={$page.data.meta?.twitterImage ?? ''} />
 	{#each $page.data.meta?.twitterValues ?? [] as { label, value }, i}
-		<meta name="twitter:label{i}" content={label} />
-		<meta name="twitter:value{i}" content={value} />
+		<meta name="twitter:label{i + 1}" content={label} />
+		<meta name="twitter:value{i + 1}" content={value} />
 	{/each}
 </svelte:head>
 
