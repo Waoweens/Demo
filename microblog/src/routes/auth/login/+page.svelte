@@ -3,8 +3,11 @@
 	import type { ActionData } from './$types';
 	import UsernameIcon from '~icons/material-symbols/person';
 	import PasswordIcon from '~icons/material-symbols/key';
+	import { pageMeta } from '$lib/stores/page';
 
 	export let form: ActionData;
+
+	pageMeta.set({ pageTitle: 'Sign in' })
 </script>
 
 <form use:enhance method="post" class="form-control gap-4">
