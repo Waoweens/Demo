@@ -44,7 +44,7 @@
 
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
-	<meta name="twitter:unage" content={$pageMeta.twImage ?? ''}>
+	<meta name="twitter:image" content={$pageMeta.twImage ?? ''}>
 	<meta name="twitter:label1" content="Posted At">
 	<meta name="twitter:value1" content={$pageMeta.date ?? ''}>
 </svelte:head>
