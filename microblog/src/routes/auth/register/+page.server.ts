@@ -3,6 +3,7 @@ import type { Actions } from "./$types";
 import db from "$lib/server/db";
 import { lucia } from "$lib/server/auth";
 import { snowflake } from "$lib/common/util";
+import { hash } from "@node-rs/argon2";
 
 export const actions: Actions = {
 	default: async (event) => {
@@ -41,7 +42,13 @@ export const actions: Actions = {
 		// Register the user
 
 		const userId = snowflake.generate();
-		const passwordHash = await Bun.password.hash(password);
+		// const passwordHash = await Bun.password.hash(password);
+		const passwordHash = await hash(password, {
+			memoryCost: 19456,
+			timeCost: 2,
+			outputLen: 32,
+			parallelism: 1,
+		});
 
 		await db.user.create({
 			data: {

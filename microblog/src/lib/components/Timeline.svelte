@@ -9,26 +9,28 @@
 	export let posts: TimelinePost[] = [];
 	let selection: string = '';
 
+	let moreOpen: { [key: string]: boolean } = {};
+
 	function openPost(event: Event, post: TimelinePost) {
 		if (selection.length > 0) {
-			console.log('Selection exists', selection);
+			return;
+		}
+		if (Object.values(moreOpen).some((v) => v)) {
 			return;
 		}
 		if (event instanceof MouseEvent) {
-			console.log('openPost Mouse event');
 			goto(`/${post.author.username}/post/${post.id}`);
 		}
 
 		if (event instanceof KeyboardEvent) {
 			if (event.key === 'Enter' || event.key === ' ') {
-				console.log('openPost Keyboard event');
 				goto(`/${post.author.username}/post/${post.id}`);
 			}
-		}	
+		}
 	}
 
 	function handleSelectionChange() {
-		selection = document.getSelection()?.toString() ?? ''
+		selection = document.getSelection()?.toString() ?? '';
 	}
 </script>
 
@@ -44,7 +46,7 @@
 				on:keydown={(event) => openPost(event, post)}
 				class="flex flex-col gap-2 p-4 border-b border-neutral"
 			>
-				<PostHeader {post} />
+				<PostHeader {post} bind:open={moreOpen[post.id.toString()]} />
 				<p>
 					{post.content}
 				</p>

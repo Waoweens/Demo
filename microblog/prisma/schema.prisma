@@ -47,10 +47,10 @@ model Follower {
   id BigInt @id
 
   followerId BigInt
-  follower   User   @relation(name: "UserFollowed", fields: [followerId], references: [id])
+  follower   User   @relation(name: "UserFollowed", fields: [followerId], references: [id], onDelete: Cascade)
 
   followingId BigInt
-  following   User   @relation(name: "UserFollows", fields: [followingId], references: [id])
+  following   User   @relation(name: "UserFollows", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@unique([followerId, followingId])
 }
@@ -59,7 +59,7 @@ model Post {
   // post
   id        BigInt   @id
   authorId  BigInt
-  author    User     @relation("author", fields: [authorId], references: [id])
+  author    User     @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
   content   String?
   createdAt DateTime @default(now())
 
@@ -70,25 +70,25 @@ model Post {
   quotes  Post[] @relation("Quotes")
 
   // replies
-  replyParent   Post?   @relation("Replies", fields: [replyParentId], references: [id])
+  replyParent   Post?   @relation("Replies", fields: [replyParentId], references: [id], onDelete: Cascade)
   replyParentId BigInt?
 
   // reposts
-  repostParent   Post?   @relation("Reposts", fields: [repostParentId], references: [id])
+  repostParent   Post?   @relation("Reposts", fields: [repostParentId], references: [id], onDelete: Cascade)
   repostParentId BigInt?
 
   // quote
-  quoteParent   Post?   @relation("Quotes", fields: [quoteParentId], references: [id])
+  quoteParent   Post?   @relation("Quotes", fields: [quoteParentId], references: [id], onDelete: Cascade)
   quoteParentId BigInt?
 }
 
 model Yeah {
   id BigInt @id
 
-  user   User   @relation("UserYeahs", fields: [userId], references: [id])
+  user   User   @relation("UserYeahs", fields: [userId], references: [id], onDelete: Cascade)
   userId BigInt
 
-  post   Post   @relation("PostYeahs", fields: [postId], references: [id])
+  post   Post   @relation("PostYeahs", fields: [postId], references: [id], onDelete: Cascade)
   postId BigInt
 
   @@unique([userId, postId])

@@ -2,7 +2,6 @@ import type { Writable } from 'svelte/store';
 import SnowflakeGenerator from './snowflake';
 
 export const snowflake = new SnowflakeGenerator(1);
-console.log(snowflake.generate());
 
 export interface DatabaseUserAttributes {
 	id: bigint

@@ -4,7 +4,6 @@ import { lucia } from "$lib/server/auth";
 
 export const actions: Actions = {
 	default: async (event) => {
-		// console.log('logout')
 		if (!event.locals.session) {
 			return fail(401);
 		}

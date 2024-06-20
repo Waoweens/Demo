@@ -2,6 +2,7 @@ import { lucia } from "$lib/server/auth";
 import { fail, redirect } from "@sveltejs/kit";
 import type { Actions } from "./$types";
 import db from "$lib/server/db";
+import { verify } from "@node-rs/argon2";
 
 export const actions: Actions = {
 	default: async (event) => {
@@ -29,7 +30,14 @@ export const actions: Actions = {
 				error: 'Invalid username or password'
 			});
 
-		const valid = await Bun.password.verify(password, user.passwordHash);
+		// const valid = await Bun.password.verify(password, user.passwordHash);
+		const valid = await verify(user.passwordHash, password, {
+			memoryCost: 19456,
+			timeCost: 2,
+			outputLen: 32,
+			parallelism: 1,
+		});
+
 		if (!valid)
 			return fail(400, {
 				error: 'Invalid username or password'

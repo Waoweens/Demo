@@ -12,8 +12,6 @@
 	import { page } from '$app/stores';
 
 	const user = getContext<PassedUser>('user');
-
-	$: console.log($page.url.pathname)
 </script>
 
 <div class="h-full flex flex-col justify-between py-4">
