@@ -12,7 +12,13 @@
 
 	const user = getContext<PassedUser>('user');
 
-	pageMeta.set(`${data.user.displayName} (@${data.user.username})`)
+		pageMeta.set({
+			pageTitle: `${data.user.displayName} (@${data.user.username})`,
+			ogTitle: `${data.user.displayName} (@${data.user.username})`,
+			description: data.user.bio,
+			twImage: data.user.profileImage,
+			date: data.user.createdAt.toString()
+		});
 </script>
 
 <div>
