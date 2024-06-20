@@ -11,6 +11,7 @@
 	import RightBar from '$components/RightBar.svelte';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { pageTitle, pageHistory, isNavigating } from '$lib/stores/page';
+	import { navigating } from '$app/stores';
 
 	export let data: LayoutData;
 
@@ -47,7 +48,13 @@
 			</aside>
 			<!--Main content-->
 			<main class="flex-1 md:border-x border-neutral overflow-auto">
-				<slot />
+				{#if $navigating}
+					<div class="h-full w-full flex items-center justify-center">
+						<span class="loading loading-spinner w-16"></span>
+					</div>
+				{:else}
+					<slot />
+				{/if}
 			</main>
 			<!--Right sidebar-->
 			<aside class="hidden md:block basis-1/5 p-2">
