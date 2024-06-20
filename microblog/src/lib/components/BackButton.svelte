@@ -1,9 +1,18 @@
 <script lang="ts">
-	import { previousPage } from '$lib/stores/page';
+	import { isNavigating, pageHistory } from '$lib/stores/page';
 	import IconWarning from '~icons/material-symbols/warning';
 	import IconBack from '~icons/material-symbols/arrow-back';
+	import { goto } from '$app/navigation';
 
 	export let title: string = 'Back'
+
+	function navigateBack() {
+		$isNavigating = true;
+		const history = $pageHistory;
+		const last = history[history.length - 1];
+		history.pop();
+		goto(last);
+	}
 </script>
 
 <div class="sticky top-0 bg-base-100 z-50 border-b border-neutral">
@@ -11,15 +20,15 @@
 		<div class="p-2 bg-warning text-warning-content flex gap-2 items-center">
 			<IconWarning class="text-2xl" />
 			<span>
-				Back button will always return to root without JavaScript. Please use browser back instead.
+				Back button does not work without JavaScript. Please use browser back instead.
 			</span>
 		</div>
 	</noscript>
 	
 	<div class="flex items-center">
-		<a href={$previousPage} class="btn btn-ghost btn-circle">
+		<button on:click={navigateBack} class="btn btn-ghost btn-circle">
 			<IconBack class="text-xl" />
-		</a>
+		</button>
 		<span class="text-xl font-bold">{title}</span>
 	</div>
 </div>

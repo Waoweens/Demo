@@ -5,12 +5,12 @@
 	import '../app.css';
 	import type { LayoutData } from './$types';
 	import LogoutModal from '$components/LogoutModal.svelte';
-	import { writable } from 'svelte/store';
+	import { get, writable } from 'svelte/store';
 	import type { DatabaseUserAttributes } from '$lib/common/util';
 	import { setContext } from 'svelte';
 	import RightBar from '$components/RightBar.svelte';
-	import { beforeNavigate } from '$app/navigation';
-	import { pageTitle, previousPage } from '$lib/stores/page';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { pageTitle, pageHistory, isNavigating } from '$lib/stores/page';
 
 	export let data: LayoutData;
 
@@ -19,8 +19,13 @@
 	setContext('user', user);
 
 	beforeNavigate(({ from }) => {
-		previousPage.set(from?.url.pathname ?? '/');
+		console.log('beforeNavigate', $pageHistory)
+		if (!$isNavigating) pageHistory.set([...get(pageHistory), from?.url.pathname ?? '/']);
 	})
+	afterNavigate(() => {
+		console.log('afterNavigate', $pageHistory)
+		if ($isNavigating) $isNavigating = false;
+	});
 </script>
 
 <svelte:head>
