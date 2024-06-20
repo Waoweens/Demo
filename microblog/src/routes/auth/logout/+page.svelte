@@ -8,8 +8,8 @@
 
 	pageMeta.set({ pageTitle: 'Log out' })
 </script>
-<h1>Logging out, please wait.</h1>
-<p>If you don't get logged out, press the button below:</p>
+<h1>Signing out, please wait.</h1>
+<p>If you don't get signed out, press the button below:</p>
 <form method="post" use:enhance bind:this={form}>
-	<button class="btn btn-primary" type="submit">Logout</button>
+	<button class="btn btn-primary" type="submit">Sign out</button>
 </form>

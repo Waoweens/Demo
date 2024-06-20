@@ -11,7 +11,7 @@
 </script>
 
 <form use:enhance method="post" class="form-control gap-4">
-	<h1 class="text-2xl font-bold text-center">Register</h1>
+	<h1 class="text-2xl font-bold text-center">Sign up</h1>
 	<label class="input input-bordered flex items-center gap-2">
 		<span><UsernameIcon /></span>
 		<input
@@ -48,9 +48,9 @@
 	{#if form?.error}
 		<p class="text-error">{form?.error}</p>
 	{/if}
-	<button class="btn btn-primary" type="submit"> Register </button>
+	<button class="btn btn-primary" type="submit">Sign up</button>
 	<p class="text-center">
 		Already have an account?
-		<a href="/auth/login">Login</a>
+		<a href="/auth/login">Sign in</a>
 	</p>
 </form>

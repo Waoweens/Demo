@@ -43,7 +43,7 @@
 	<p class="text-center">
 		Don't have an account?
 		<a href="/auth/register" class="link">
-			Register
+			Sign up
 		</a>
 	</p>
 </form>
