@@ -10,15 +10,15 @@
 
 	export let data: PageData;
 
-	const user = getContext<PassedUser>('user');
-
-	pageMeta.set({
+	$pageMeta = {
 		pageTitle: `${data.user.displayName} (@${data.user.username})`,
 		ogTitle: `${data.user.displayName} (@${data.user.username})`,
 		description: data.user.bio,
 		twImage: data.user.profileImage,
 		date: data.user.createdAt.toString()
-	});
+	};
+
+	const user = getContext<PassedUser>('user');
 </script>
 
 <div>

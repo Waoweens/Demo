@@ -1,7 +1,7 @@
 <script>
 	import { pageMeta } from "$lib/stores/page";
 
-	pageMeta.set({ pageTitle: 'Redirecting' })
+	$pageMeta = { pageTitle: 'Redirecting' };
 </script>
 
 <h1>REDIRECTING</h1>

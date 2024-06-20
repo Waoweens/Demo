@@ -8,7 +8,7 @@
 	import type { PassedUser } from '$lib/common/util';
 	import { pageMeta } from '$lib/stores/page';
 
-	pageMeta.set({ pageTitle: 'Home' });
+	$pageMeta = { pageTitle: 'Home' };
 
 	export let data: PageData;
 

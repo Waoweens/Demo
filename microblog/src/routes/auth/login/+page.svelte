@@ -7,7 +7,7 @@
 
 	export let form: ActionData;
 
-	pageMeta.set({ pageTitle: 'Sign in' })
+	$pageMeta = { pageTitle: 'Sign in' };
 </script>
 
 <form use:enhance method="post" class="form-control gap-4">

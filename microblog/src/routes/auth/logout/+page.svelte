@@ -6,7 +6,7 @@
 
 	$: if (form) form.requestSubmit();
 
-	pageMeta.set({ pageTitle: 'Log out' })
+	$pageMeta = { pageTitle: 'Log out' };
 </script>
 <h1>Signing out, please wait.</h1>
 <p>If you don't get signed out, press the button below:</p>

@@ -6,14 +6,15 @@
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
-
-	pageMeta.set({
+	
+	$pageMeta = {
 		pageTitle: `${data.post.author.displayName}: "${data.post.content}"`,
 		ogTitle: `${data.post.author.displayName} (@${data.post.author.username})`,
 		description: data.post.content,
 		twImage: data.post.author.profileImage,
 		date: data.post.createdAt.toString()
-	});
+	};
+
 </script>
 
 <div>
