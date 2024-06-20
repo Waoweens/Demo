@@ -10,7 +10,7 @@
 	import { setContext } from 'svelte';
 	import RightBar from '$components/RightBar.svelte';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import { pageTitle, pageHistory, isGoingBack } from '$lib/stores/page';
+	import { pageMeta, pageHistory, isGoingBack } from '$lib/stores/page';
 	import { navigating } from '$app/stores';
 
 	export let data: LayoutData;
@@ -28,7 +28,7 @@
 </script>
 
 <svelte:head>
-	<title>{$pageTitle === '' ? 'Unknown page' : $pageTitle} &mdash; Microblog</title>
+	<title>{$pageMeta === '' ? 'Unknown page' : $pageMeta} &mdash; Microblog</title>
 </svelte:head>
 
 <!--Modals-->

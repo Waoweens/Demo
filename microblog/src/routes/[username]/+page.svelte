@@ -6,13 +6,13 @@
 	import IconFollow from '~icons/material-symbols/person-add';
 	import type { PassedUser } from '$lib/common/util';
 	import BackButton from '$components/BackButton.svelte';
-	import { pageTitle } from '$lib/stores/page';
+	import { pageMeta } from '$lib/stores/page';
 
 	export let data: PageData;
 
 	const user = getContext<PassedUser>('user');
 
-	pageTitle.set(`${data.user.displayName} (@${data.user.username})`)
+	pageMeta.set(`${data.user.displayName} (@${data.user.username})`)
 </script>
 
 <div>
