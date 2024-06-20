@@ -10,7 +10,7 @@
 	import { setContext } from 'svelte';
 	import RightBar from '$components/RightBar.svelte';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import { pageMeta, pageHistory, isGoingBack } from '$lib/stores/page';
+	import { pageHistory, isGoingBack } from '$lib/stores/page';
 	import { navigating, page } from '$app/stores';
 
 	export let data: LayoutData;
@@ -21,7 +21,7 @@
 
 	beforeNavigate(({ from }) => {
 		if (!$isGoingBack) pageHistory.set([...get(pageHistory), from?.url.pathname ?? '/']);
-	})
+	});
 	afterNavigate(() => {
 		if ($isGoingBack) $isGoingBack = false;
 	});
@@ -29,24 +29,24 @@
 
 <svelte:head>
 	<title>{!$pageMeta.pageTitle ? 'Unknown page' : $pageMeta.pageTitle} &mdash; Microblog</title>
-	<meta name="application-name" content="Microblog">
-	<meta name="generator" content="MicroblogWeb">
-	<meta name="description" content={$pageMeta.description ?? ''}>
-	<meta name="article:published_time" content={$pageMeta.date ?? ''}>
+	<meta name="application-name" content="Microblog" />
+	<meta name="generator" content="MicroblogWeb" />
+	<meta name="description" content={$pageMeta.description ?? ''} />
+	<meta name="article:published_time" content={$pageMeta.date ?? ''} />
 
 	<!-- Open Graph -->
-	<meta property="og:site_name" content="Microblog">
-	<meta property="og:type" content="article">
-	<meta property="og:url" content={$pageMeta.url ?? $page.url.toString()}>
-	<meta property="og:title" content={$pageMeta.ogTitle ?? 'Microblog'}>
-	<meta property="og:description" content={$pageMeta.description ?? ''}>
-	<meta property="og:image" content={$pageMeta.ogImage ?? ''}>
+	<meta property="og:site_name" content="Microblog" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content={$pageMeta.url ?? $page.url.toString()} />
+	<meta property="og:title" content={$pageMeta.ogTitle ?? 'Microblog'} />
+	<meta property="og:description" content={$pageMeta.description ?? ''} />
+	<meta property="og:image" content={$pageMeta.ogImage ?? ''} />
 
 	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:image" content={$pageMeta.twImage ?? ''}>
-	<meta name="twitter:label1" content="Posted At">
-	<meta name="twitter:value1" content={$pageMeta.date ?? ''}>
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:image" content={$pageMeta.twImage ?? ''} />
+	<meta name="twitter:label1" content="Posted At" />
+	<meta name="twitter:value1" content={$pageMeta.date ?? ''} />
 </svelte:head>
 
 <!--Modals-->

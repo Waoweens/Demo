@@ -6,9 +6,6 @@
 	import { getContext } from 'svelte';
 	import type { PageData, LayoutData } from './$types';
 	import type { PassedUser } from '$lib/common/util';
-	import { pageMeta } from '$lib/stores/page';
-
-	$pageMeta = { pageTitle: 'Home' };
 
 	export let data: PageData;
 
