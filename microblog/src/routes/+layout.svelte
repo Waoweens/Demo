@@ -10,7 +10,7 @@
 	import { setContext } from 'svelte';
 	import RightBar from '$components/RightBar.svelte';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import { pageTitle, pageHistory, isNavigating } from '$lib/stores/page';
+	import { pageTitle, pageHistory, isGoingBack } from '$lib/stores/page';
 	import { navigating } from '$app/stores';
 
 	export let data: LayoutData;
@@ -20,10 +20,10 @@
 	setContext('user', user);
 
 	beforeNavigate(({ from }) => {
-		if (!$isNavigating) pageHistory.set([...get(pageHistory), from?.url.pathname ?? '/']);
+		if (!$isGoingBack) pageHistory.set([...get(pageHistory), from?.url.pathname ?? '/']);
 	})
 	afterNavigate(() => {
-		if ($isNavigating) $isNavigating = false;
+		if ($isGoingBack) $isGoingBack = false;
 	});
 </script>
 

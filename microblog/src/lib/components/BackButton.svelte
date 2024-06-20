@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { isNavigating, pageHistory } from '$lib/stores/page';
+	import { isGoingBack, pageHistory } from '$lib/stores/page';
 	import IconWarning from '~icons/material-symbols/warning';
 	import IconBack from '~icons/material-symbols/arrow-back';
 	import { goto } from '$app/navigation';
@@ -7,7 +7,7 @@
 	export let title: string = 'Back'
 
 	function navigateBack() {
-		$isNavigating = true;
+		$isGoingBack = true;
 		const history = $pageHistory;
 		const last = history[history.length - 1];
 		history.pop();
