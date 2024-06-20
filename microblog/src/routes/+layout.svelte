@@ -40,9 +40,11 @@
 	<meta property="og:url" content={$pageMeta.url ?? $page.url.toString()}>
 	<meta property="og:title" content={$pageMeta.ogTitle ?? 'Microblog'}>
 	<meta property="og:description" content={$pageMeta.description ?? ''}>
+	<meta property="og:image" content={$pageMeta.ogImage ?? ''}>
 
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
+	<meta name="twitter:unage" content={$pageMeta.twImage ?? ''}>
 	<meta name="twitter:label1" content="Posted At">
 	<meta name="twitter:value1" content={$pageMeta.date ?? ''}>
 </svelte:head>

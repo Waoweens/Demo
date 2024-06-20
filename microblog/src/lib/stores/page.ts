@@ -4,6 +4,8 @@ export const pageMeta = writable<{
 	pageTitle?: string | null;
 	ogTitle?: string | null;
 	description?: string | null;
+	ogImage?: string | null;
+	twImage?: string | null;
 	url?: string | null;
 	date?: string | null;
 }>({})
