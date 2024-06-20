@@ -1,9 +1,17 @@
 import { fail, redirect } from "@sveltejs/kit";
-import type { Actions } from "./$types";
+import type { Actions, PageServerLoad } from "./$types";
 import db from "$lib/server/db";
 import { lucia } from "$lib/server/auth";
 import { snowflake } from "$lib/common/util";
 import { hash } from "@node-rs/argon2";
+
+export const load: PageServerLoad = () => {
+	return {
+		meta: {
+			title: 'Sign up'
+		}
+	}
+}
 
 export const actions: Actions = {
 	default: async (event) => {

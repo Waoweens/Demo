@@ -55,6 +55,30 @@ export const load: PageServerLoad = async ({ params, locals  }) => {
 	};
 
 	return {
-		post: processedPost
+		post: processedPost,
+		meta: {
+			title: `${post.author.displayName}: "${post.content}"`,
+			description: post.content,
+			ogType: 'article',
+			ogTitle: `${post.author.displayName} (${post.author.username})`,
+			ogDescription: post.content,
+			articlePublishedTime: post.createdAt.toISOString(),
+			twitterCard: 'summary',
+			twitterImage: post.author.profileImage,
+			twitterValues: [
+				{
+					label: 'Posted At',
+					value: post.createdAt.toISOString()
+				},
+				{
+					label: 'Yeahs',
+					value: post._count.yeahs
+				},
+				{
+					label: 'Reposts',
+					value: post._count.reposts + post._count.quotes
+				}
+			]
+		}
 	}
 }

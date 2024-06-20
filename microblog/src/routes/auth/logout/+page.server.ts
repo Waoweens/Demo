@@ -1,6 +1,15 @@
 import { fail, redirect } from "@sveltejs/kit";
-import type { Actions } from "./$types";
+import type { Actions, PageServerLoad } from "./$types";
 import { lucia } from "$lib/server/auth";
+
+export const load: PageServerLoad = () => {
+	return {
+		meta: {
+			title: 'Sign out'
+		}
+	}
+
+}
 
 export const actions: Actions = {
 	default: async (event) => {

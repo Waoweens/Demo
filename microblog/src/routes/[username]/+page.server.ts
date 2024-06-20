@@ -80,6 +80,19 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	return {
 		user,
-		posts: processedPosts
+		posts: processedPosts,
+		meta: {
+			title: `${user.displayName} (@${user.username})`,
+			description: user.bio,
+			ogType: 'profile',
+			ogTitle: `${user.displayName} (@${user.username})`,
+			ogDescription: user.bio,
+			profileUsername: user.username,
+			twitterCard: 'summary',
+			twitterImage: user.profileImage,
+			twitterValues: [
+				{ label: 'Joined', value: user.createdAt.toISOString() },
+			]
+		}
 	}
 };

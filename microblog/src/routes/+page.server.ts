@@ -49,6 +49,9 @@ export const load = async (event) => {
 	}));
 
 	return {
-		posts: processedPosts
+		posts: processedPosts,
+		meta: {
+			title: 'Home'
+		}
 	};
 };
