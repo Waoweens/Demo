@@ -2,9 +2,18 @@
 	import BackButton from "$components/BackButton.svelte";
 	import PostActions from "$components/PostActions.svelte";
 	import PostHeader from "$components/PostHeader.svelte";
+	import { pageMeta } from "$lib/stores/page";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
+
+	pageMeta.set({
+		pageTitle: `${data.post.author.displayName}: "${data.post.content}"`,
+		ogTitle: `${data.post.author.displayName} (@${data.post.author.username})`,
+		description: data.post.content,
+		twImage: data.post.author.profileImage,
+		date: data.post.createdAt.toString()
+	});
 </script>
 
 <div>
