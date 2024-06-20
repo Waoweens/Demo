@@ -12,14 +12,19 @@
 	let moreOpen: { [key: string]: boolean } = {};
 
 	function openPost(event: Event, post: TimelinePost) {
+		// if the user is selecting text, don't open the post
 		if (selection.length > 0) return;
+		// if the user has the more menu open, don't open the post
 		if (Object.values(moreOpen).some((v) => v)) return;
+		// if the user clicked on a clickable child, don't open the post
 		if ((event.target as HTMLElement).closest('.clickableChild')) return;
 
+		// open post when clicked
 		if (event instanceof MouseEvent) {
 			goto(`/${post.author.username}/post/${post.id}`);
 		}
 
+		// open post when enter or space is pressed
 		if (event instanceof KeyboardEvent) {
 			if (event.key === 'Enter' || event.key === ' ') {
 				goto(`/${post.author.username}/post/${post.id}`);
