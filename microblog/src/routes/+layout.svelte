@@ -3,7 +3,7 @@
 	import Navbar from '$components/Navbar.svelte';
 	import SideNavbar from '$components/SideNavbar.svelte';
 	import '../app.css';
-	import type { LayoutData } from './$types';
+	import type { LayoutData, PageData } from './$types';
 	import LogoutModal from '$components/LogoutModal.svelte';
 	import { get, writable } from 'svelte/store';
 	import type { DatabaseUserAttributes } from '$lib/common/util';
@@ -13,7 +13,7 @@
 	import { pageHistory, isGoingBack } from '$lib/stores/page';
 	import { navigating, page } from '$app/stores';
 
-	export let data: LayoutData;
+	export let data: LayoutData & PageData;
 
 	const user = writable<DatabaseUserAttributes | undefined>();
 	$: user.set(data.user);
@@ -28,25 +28,33 @@
 </script>
 
 <svelte:head>
-	<title>{!$pageMeta.pageTitle ? 'Unknown page' : $pageMeta.pageTitle} &mdash; Microblog</title>
-	<meta name="application-name" content="Microblog" />
-	<meta name="generator" content="MicroblogWeb" />
-	<meta name="description" content={$pageMeta.description ?? ''} />
-	<meta name="article:published_time" content={$pageMeta.date ?? ''} />
-
+	<title>{data.meta?.title} &mdash; Microblog</title>
+	<meta name="application-name" content={data.meta?.applicationName} />
+	<meta name="generator" content={data.meta?.generator} />
+	<meta name="description" content={data.meta?.description} />
+	
 	<!-- Open Graph -->
-	<meta property="og:site_name" content="Microblog" />
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content={$pageMeta.url ?? $page.url.toString()} />
-	<meta property="og:title" content={$pageMeta.ogTitle ?? 'Microblog'} />
-	<meta property="og:description" content={$pageMeta.description ?? ''} />
-	<meta property="og:image" content={$pageMeta.ogImage ?? ''} />
+	<meta property="og:site_name" content={data.meta?.ogSiteName} />
+	<meta property="og:type" content={data.meta?.ogType} />
+	<meta property="og:url" content={data.meta?.ogUrl} />
+	<meta property="og:title" content={data.meta?.ogTitle} />
+	<meta property="og:description" content={data.meta?.ogDescription} />
+	<meta property="og:image" content={data.meta?.ogImage} />
+
+	<!-- og:type article -->
+	<meta name="article:author" content={data.meta?.articleAuthor} />
+	<meta name="article:published_time" content={data.meta?.articlePublishedTime} />
+
+	<!-- og:type profile -->
+	<meta property="profile:username" content={data.meta?.profileUsername} />
 
 	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:image" content={$pageMeta.twImage ?? ''} />
-	<meta name="twitter:label1" content="Posted At" />
-	<meta name="twitter:value1" content={$pageMeta.date ?? ''} />
+	<meta name="twitter:card" content={data.meta?.twitterCard} />
+	<meta name="twitter:image" content={data.meta?.twitterImage} />
+	{#each data.meta?.twitterValues ?? [] as { label, value }, i}
+		<meta name="twitter:label{i}" content={label} />
+		<meta name="twitter:value{i}" content={value} />
+	{/each}
 </svelte:head>
 
 <!--Modals-->
