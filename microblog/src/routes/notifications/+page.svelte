@@ -1,8 +1,8 @@
 <script lang="ts">
-	import BackButton from "$components/BackButton.svelte";
-import { pageMeta } from "$lib/stores/page";
+	import BackButton from '$components/BackButton.svelte';
+	import { pageMeta } from '$lib/stores/page';
 
-	pageMeta.set('Notifications')
+	pageMeta.set({ pageTitle: 'Notifications' });
 </script>
 
 <BackButton title="Notifications" />
