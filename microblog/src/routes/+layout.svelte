@@ -61,11 +61,11 @@
 <LogoutModal />
 
 <div class="flex flex-col h-screen">
-	<header>
+	<!-- <header>
 		<nav>
 			<Navbar />
 		</nav>
-	</header>
+	</header> -->
 	<div class="flex-1 flex h-full justify-center overflow-hidden">
 		<div class="flex w-full max-w-6xl overflow-hidden">
 			<!--Left sidebar-->
