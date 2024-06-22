@@ -8,7 +8,7 @@
 </script>
 
 <div>
-	<BackButton title="Post" />
+	<BackButton crumbs={['Post']} />
 	<article class="flex flex-col gap-2 p-4 border-b border-neutral">
 		<PostHeader post={data.post} />
 		<p>{data.post.content}</p>

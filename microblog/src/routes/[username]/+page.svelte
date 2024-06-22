@@ -13,7 +13,7 @@
 </script>
 
 <div>
-	<BackButton title={data.user.displayName ?? 'Unknown user'} />
+	<BackButton crumbs={[data.user.displayName ?? 'Unknown user']} />
 	<div class="flex flex-col border-b border-neutral">
 		<img class="aspect-[3/1] w-full" src={data.user.bannerImage} alt="user banner" />
 		<div class="avatar ml-8 bottom-16 -mb-16">
