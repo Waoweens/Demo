@@ -86,7 +86,7 @@
 		<div class="modal-box">
 			<h3 class="text-lg font-bold">Edit profile picture</h3>
 			<div class="py-4">
-
+				<Cropper bind:cropper src={$user?.profileImage ?? ''} cropper_props={profileProps}></Cropper>
 			</div>
 			<div class="modal-action">
 				<form method="dialog">
@@ -101,7 +101,9 @@
 	<dialog bind:this={bannerModal} class="modal" on:close={() => history.back()}>
 		<div class="modal-box">
 			<h3 class="text-lg font-bold">Test!</h3>
-			<p class="py-4">Modal content.</p>
+			<div class="py-4">
+				<Cropper bind:cropper src={$user?.bannerImage ?? ''} cropper_props={bannerProps}></Cropper>
+			</div>
 			<div class="modal-action">
 				<form method="dialog">
 					<button type="submit" class="btn">Close</button>
