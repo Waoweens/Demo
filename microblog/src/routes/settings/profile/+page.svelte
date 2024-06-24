@@ -12,13 +12,12 @@
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	$: console.log($page.state);
+	const user = getContext<PassedUser>('user');
 
 	export let form: ActionData;
-	export let displayName: string = '';
-	export let bio: string = '';
+	export let displayName: string = $user?.displayName ?? '';
+	export let bio: string = $user?.bio ?? '';
 
-	const user = getContext<PassedUser>('user');
 
 	let profileFile: FileList | null = null;
 	let profileSrc: string | null = null;
@@ -87,7 +86,7 @@
 		<div class="modal-box">
 			<h3 class="text-lg font-bold">Edit profile picture</h3>
 			<div class="py-4">
-				
+
 			</div>
 			<div class="modal-action">
 				<form method="dialog">
