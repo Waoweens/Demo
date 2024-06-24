@@ -27,8 +27,6 @@
 	let bannerSrc: string | null = null;
 	let bannerModal: HTMLDialogElement | null = null;
 
-	$: console.log(profileFile);
-
 	let cropper: CropperInstance | null = null;
 	const profileProps: CropperDefaultProps = {
 		viewMode: 1,

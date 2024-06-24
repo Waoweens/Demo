@@ -3,7 +3,6 @@ import type { Actions } from './$types';
 
 export const actions: Actions = {
 	default: async ({ locals, request }) => {
-		console.log('received');
 		if (!locals.user) return fail(401, { error: 'Unauthorized' });
 
 		const formData = await request.formData();
