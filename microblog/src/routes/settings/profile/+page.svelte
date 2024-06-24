@@ -3,18 +3,30 @@
 	import BackButton from '$components/BackButton.svelte';
 	import type { ActionData } from './$types';
 	import IconWarning from '~icons/material-symbols/warning';
+	import IconUpload from '~icons/material-symbols/upload';
 	import IconError from '~icons/material-symbols/error-outline';
 	import IconName from '~icons/material-symbols/person';
 	import { Cropper, type CropperInstance, type CropperDefaultProps } from 'svelte-cropper';
+	import { getContext } from 'svelte';
+	import type { PassedUser } from '$lib/common/util';
+	import { pushState } from '$app/navigation';
+	import { page } from '$app/stores';
+
+	$: console.log($page.state);
 
 	export let form: ActionData;
 	export let displayName: string = '';
 	export let bio: string = '';
 
+	const user = getContext<PassedUser>('user');
+
 	let profileFile: FileList | null = null;
 	let profileSrc: string | null = null;
+	let profileModal: HTMLDialogElement | null = null;
+
 	let bannerFile: FileList | null = null;
 	let bannerSrc: string | null = null;
+	let bannerModal: HTMLDialogElement | null = null;
 
 	$: console.log(profileFile);
 
@@ -30,7 +42,22 @@
 		autoCropArea: 1
 	};
 
-	function previewProfile() {
+	function editProfile() {
+		pushState('/settings/profile/pfp', {
+			showEditProfile: true
+		});
+	}
+	$: $page.state.showEditProfile ? profileModal?.showModal() : profileModal?.close();
+
+	function editBanner() {
+		pushState('/settings/profile/banner', {
+			showEditBanner: true
+		});
+		if (bannerModal) bannerModal.showModal();
+	}
+	$: $page.state.showEditBanner ? bannerModal?.showModal() : bannerModal?.close();
+
+	function previewProfileImage() {
 		const reader = new FileReader();
 		reader.onload = (e) => {
 			profileSrc = e.target!.result?.toString() ?? null;
@@ -38,7 +65,7 @@
 		reader.readAsDataURL(profileFile![0]);
 	}
 
-	function previewBanner() {
+	function previewBannerImage() {
 		const reader = new FileReader();
 		reader.onload = (e) => {
 			bannerSrc = e.target!.result?.toString() ?? null;
@@ -55,14 +82,64 @@
 	</div>
 </noscript>
 
-{#if form?.error}
-	<div class="alert alert-error" role="alert">
-		<IconError class="text-xl" />
-		<span>{form.error}</span>
-	</div>
+{#if $page.state.showEditProfile}
+	<dialog bind:this={profileModal} class="modal" on:close={() => history.back()}>
+		<div class="modal-box">
+			<h3 class="text-lg font-bold">Edit profile picture</h3>
+			<div class="py-4">
+				
+			</div>
+			<div class="modal-action">
+				<form method="dialog">
+					<button type="submit" class="btn">Close</button>
+				</form>
+			</div>
+		</div>
+	</dialog>
 {/if}
+
+{#if $page.state.showEditBanner}
+	<dialog bind:this={bannerModal} class="modal" on:close={() => history.back()}>
+		<div class="modal-box">
+			<h3 class="text-lg font-bold">Test!</h3>
+			<p class="py-4">Modal content.</p>
+			<div class="modal-action">
+				<form method="dialog">
+					<button type="submit" class="btn">Close</button>
+				</form>
+			</div>
+		</div>
+	</dialog>
+{/if}
+
+<div class="flex flex-col">
+	<img class="aspect-[3/1] w-full" src={$user?.bannerImage} alt="user banner" />
+	<div class="avatar ml-8 bottom-16 -mb-16">
+		<div class="w-32 rounded-full border-4 border-base-100">
+			<img src={$user?.profileImage} alt="user avatar" />
+		</div>
+	</div>
+	<div class="flex flex-col lg:flex-row gap-2 self-end relative mr-4 bottom-12 -mb-12">
+		<a
+			href="/settings/profile/pfp"
+			on:click|preventDefault={editProfile}
+			class="btn btn-sm btn-outline"
+		>
+			<IconUpload class="text-lg" />
+			Profile Picture
+		</a>
+		<a
+			href="/settings/profile/banner"
+			on:click|preventDefault={editBanner}
+			class="btn btn-sm btn-outline"
+		>
+			<IconUpload class="text-lg" />
+			Banner
+		</a>
+	</div>
+</div>
 <div class="p-4 flex flex-col gap-4">
-	<div>
+	<!-- <div>
 		<div class="label">
 			<span class="label-text">Profile Picture</span>
 		</div>
@@ -76,7 +153,7 @@
 			type="file"
 			accept="image/*"
 			bind:files={profileFile}
-			on:change={previewProfile}
+			on:change={previewProfileImage}
 		/>
 
 		<div class="label">
@@ -92,10 +169,17 @@
 			type="file"
 			accept="image/*"
 			bind:files={bannerFile}
-			on:change={previewBanner}
+			on:change={previewBannerImage}
 		/>
-	</div>
+	</div> -->
 	<form use:enhance enctype="multipart/form-data" method="post" class="flex flex-col gap-4">
+		{#if form?.error}
+			<div class="alert alert-error p-4" role="alert">
+				<IconError class="text-xl" />
+				<span>{form.error}</span>
+			</div>
+		{/if}
+
 		<label class="form-control">
 			<div class="label">
 				<span class="label-text">Display Name</span>
