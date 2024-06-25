@@ -1,16 +1,17 @@
-import { lucia } from "$lib/server/auth";
-import { fail, redirect } from "@sveltejs/kit";
-import type { Actions, PageServerLoad } from "./$types";
-import db from "$lib/server/db";
-import { verify } from "@node-rs/argon2";
+import { lucia } from '$lib/server/auth';
+import { fail, redirect } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
+import db from '$lib/server/db';
+import { verify } from '@node-rs/argon2';
 
-export const load: PageServerLoad = () => {
+export const load: PageServerLoad = ({ locals }) => {
+	if (locals.user) return redirect(302, '/auth/redirect-root');
 	return {
 		meta: {
 			title: 'Sign in'
 		}
-	}
-}
+	};
+};
 
 export const actions: Actions = {
 	default: async (event) => {
@@ -43,7 +44,7 @@ export const actions: Actions = {
 			memoryCost: 19456,
 			timeCost: 2,
 			outputLen: 32,
-			parallelism: 1,
+			parallelism: 1
 		});
 
 		if (!valid)
@@ -58,6 +59,6 @@ export const actions: Actions = {
 			...sessionCookie.attributes
 		});
 
-		return redirect(302, '/auth/redirect-root')
+		return redirect(302, '/auth/redirect-root');
 	}
-}
+};
