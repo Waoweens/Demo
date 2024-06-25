@@ -19,25 +19,26 @@
 	export let displayName: string = $user?.displayName ?? '';
 	export let bio: string = $user?.bio ?? '';
 
+	let profileModal: HTMLDialogElement | null = null;
 	let profileFile: FileList | null = null;
 	let profileSrc: string | null = null;
-	let profileCropped: string | null = null;
-	let profileData: Blob | null = null;
-	let profileModal: HTMLDialogElement | null = null;
+	let profilePreview: string | null = null;
+	let profileCrop: string | null = null;
 
+	let bannerModal: HTMLDialogElement | null = null;
 	let bannerFile: FileList | null = null;
 	let bannerSrc: string | null = null;
-	let bannerCropped: string | null = null;
-	let bannerData: CFileList | null = null;
-	let bannerModal: HTMLDialogElement | null = null;
-
-	$: console.log('profileData', profileData);
+	let bannerPreview: string | null = null;
+	let bannerCrop: string | null = null;
 
 	let cropper: CropperInstance | null = null;
 	const profileProps: CropperDefaultProps = {
 		viewMode: 1,
 		aspectRatio: 1,
-		autoCropArea: 1
+		autoCropArea: 1,
+		crop: (event) => {
+			console.log(event.detail)
+		}
 	};
 	const bannerProps: CropperDefaultProps = {
 		viewMode: 1,
@@ -60,7 +61,7 @@
 	}
 	$: $page.state.showEditBanner ? bannerModal?.showModal() : bannerModal?.close();
 
-	function previewProfileImage() {
+	function renderProfile() {
 		const reader = new FileReader();
 		reader.onload = (e) => {
 			profileSrc = e.target!.result?.toString() ?? null;
@@ -68,7 +69,7 @@
 		reader.readAsDataURL(profileFile![0]);
 	}
 
-	function previewBannerImage() {
+	function renderBanner() {
 		const reader = new FileReader();
 		reader.onload = (e) => {
 			bannerSrc = e.target!.result?.toString() ?? null;
@@ -77,38 +78,23 @@
 	}
 
 	function saveProfile() {
-		console.log('saveProfile');
-		if (cropper) {
-			console.log('saveProfile>cropper');
-			const canvas = cropper.getCroppedCanvas({
-				width: 400,
-				height: 400
+		if (profileFile && cropper) {
+			const canvas = cropper.getCroppedCanvas();
+			canvas.toBlob((blob) => {
+				profilePreview = URL.createObjectURL(blob!);
 			});
-			if (canvas) {
-				console.log('saveProfile>cropper>canvas');
-				profileCropped = canvas.toDataURL();
-				canvas.toBlob(async (blob) => {
-					console.log('saveProfile>cropper>canvas>blob');
-					// profileData = new CFileList([new File([blob!], 'profile')]);
-					profileData = blob;
-				});
-			}
+			profileCrop = JSON.stringify(cropper.getData())
 		}
 		history.back();
 	}
 
 	function saveBanner() {
-		if (cropper) {
-			const canvas = cropper.getCroppedCanvas({
-				width: 1500,
-				height: 500
+		if (bannerFile && cropper) {
+			const canvas = cropper.getCroppedCanvas();
+			canvas.toBlob((blob) => {
+				bannerPreview = URL.createObjectURL(blob!);
 			});
-			if (canvas) {
-				bannerCropped = canvas.toDataURL();
-				canvas.toBlob((blob) => {
-					// bannerData = blob;
-				});
-			}
+			bannerCrop = JSON.stringify(cropper.getData())
 		}
 		history.back();
 	}
@@ -136,7 +122,7 @@
 					type="file"
 					class="file-input w-full"
 					bind:files={profileFile}
-					on:change={previewProfileImage}
+					on:change={renderProfile}
 				/>
 			</div>
 			<div class="modal-action">
@@ -162,7 +148,7 @@
 					type="file"
 					class="file-input w-full"
 					bind:files={bannerFile}
-					on:change={previewBannerImage}
+					on:change={renderBanner}
 				/>
 			</div>
 			<div class="modal-action">
@@ -175,10 +161,10 @@
 {/if}
 
 <div class="flex flex-col">
-	<img class="aspect-[3/1] w-full" src={bannerCropped ?? $user?.bannerImage} alt="user banner" />
+	<img class="aspect-[3/1] w-full" src={bannerPreview ?? $user?.bannerImage} alt="user banner" />
 	<div class="avatar ml-8 bottom-16 -mb-16">
 		<div class="w-32 rounded-full border-4 border-base-100">
-			<img src={profileCropped ?? $user?.profileImage} alt="user avatar" />
+			<img src={profilePreview ?? $user?.profileImage} alt="user avatar" />
 		</div>
 	</div>
 	<div class="flex flex-col lg:flex-row gap-2 self-end relative mr-4 bottom-12 -mb-12">
@@ -200,8 +186,15 @@
 		</a>
 	</div>
 </div>
-<div class="p-4 flex flex-col gap-4">
-	<form use:enhance enctype="multipart/form-data" method="post" class="flex flex-col gap-4">
+
+<form enctype="multipart/form-data" method="post" use:enhance={({formData}) => {
+	console.log('uploading:', profileFile?.[0], profileCrop, bannerFile?.[0], bannerCrop);
+	if (profileFile) formData.append('profileImage', profileFile[0]);
+	if (bannerFile) formData.append('bannerImage', bannerFile[0]);
+	if (profileCrop) formData.append('profileCrop', profileCrop);
+	if (bannerCrop) formData.append('bannerCrop', bannerCrop);
+}}>
+	<div class="p-4 flex flex-col gap-4">
 		{#if form?.error}
 			<div class="alert alert-error p-4" role="alert">
 				<IconError class="text-xl" />
@@ -245,9 +238,6 @@
 			/>
 		</div>
 
-		<input type="hidden" name="profileImage" bind:value={profileData} />
-		<input type="hidden" name="bannerImage" bind:value={bannerData} />
-
 		<button type="submit" class="btn btn-primary w-full">Save</button>
-	</form>
-</div>
+	</div>
+</form>
