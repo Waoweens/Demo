@@ -8,10 +8,9 @@
 	import IconName from '~icons/material-symbols/person';
 	import { Cropper, type CropperInstance, type CropperDefaultProps } from 'svelte-cropper';
 	import { getContext } from 'svelte';
-	import { CFileList, type PassedUser } from '$lib/common/util';
+	import type { PassedUser } from '$lib/common/util';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { fileTypeFromBlob } from 'file-type/core';
 
 	const user = getContext<PassedUser>('user');
 
