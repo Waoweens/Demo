@@ -14,9 +14,11 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$components: './src/lib/components',
-			$lib: './src/lib',
+			$lib: './src/lib'
 		},
-		csrf: process.env.NODE_ENV !== 'development',
+		csrf: {
+			checkOrigin: process.env.NODE_ENV !== 'development'
+		}
 	}
 };
 
