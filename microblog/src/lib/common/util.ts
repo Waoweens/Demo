@@ -39,3 +39,16 @@ export type ModalActions = {
 	open: () => void;
 	close: () => void;
 };
+
+export class CFileList {
+	private files: File[] = [];
+	public length: number = this.files.length;
+
+	constructor(files: File[]) {
+		this.files = files;
+	}
+
+	public item(index: number): File | null {
+		return this.files[index] || null;
+	}
+}
