@@ -18,13 +18,14 @@
 	export let displayName: string = $user?.displayName ?? '';
 	export let bio: string = $user?.bio ?? '';
 
-
 	let profileFile: FileList | null = null;
 	let profileSrc: string | null = null;
+	let profileCropped: string | null = null;
 	let profileModal: HTMLDialogElement | null = null;
 
 	let bannerFile: FileList | null = null;
 	let bannerSrc: string | null = null;
+	let bannerCropped: string | null = null;
 	let bannerModal: HTMLDialogElement | null = null;
 
 	let cropper: CropperInstance | null = null;
@@ -69,6 +70,34 @@
 		};
 		reader.readAsDataURL(bannerFile![0]);
 	}
+
+	function saveProfile() {
+		if (cropper) {
+			const canvas = cropper.getCroppedCanvas({
+				width: 400,
+				height: 400
+			});
+			if (canvas) {
+				const dataUrl = canvas.toDataURL();
+				profileCropped = dataUrl;
+			}
+		}
+		history.back();
+	}
+
+	function saveBanner() {
+		if (cropper) {
+			const canvas = cropper.getCroppedCanvas({
+				width: 1500,
+				height: 500
+			});
+			if (canvas) {
+				const dataUrl = canvas.toDataURL();
+				bannerCropped = dataUrl;
+			}
+		}
+		history.back();
+	}
 </script>
 
 <BackButton crumbs={['Settings', 'Profile']} />
@@ -80,15 +109,25 @@
 </noscript>
 
 {#if $page.state.showEditProfile}
-	<dialog bind:this={profileModal} class="modal" on:close={() => history.back()}>
+	<dialog bind:this={profileModal} class="modal" on:close={saveProfile}>
 		<div class="modal-box">
 			<h3 class="text-lg font-bold">Edit profile picture</h3>
 			<div class="py-4">
-				<Cropper bind:cropper src={$user?.profileImage ?? ''} cropper_props={profileProps}></Cropper>
+				<Cropper
+					bind:cropper
+					src={profileSrc ? profileSrc : $user?.profileImage ?? ''}
+					cropper_props={profileProps}
+				/>
+				<input
+					type="file"
+					class="file-input w-full"
+					bind:files={profileFile}
+					on:change={previewProfileImage}
+				/>
 			</div>
 			<div class="modal-action">
 				<form method="dialog">
-					<button type="submit" class="btn">Close</button>
+					<button type="submit" class="btn btn-outline">Confirm</button>
 				</form>
 			</div>
 		</div>
@@ -96,15 +135,25 @@
 {/if}
 
 {#if $page.state.showEditBanner}
-	<dialog bind:this={bannerModal} class="modal" on:close={() => history.back()}>
+	<dialog bind:this={bannerModal} class="modal" on:close={saveBanner}>
 		<div class="modal-box">
-			<h3 class="text-lg font-bold">Test!</h3>
+			<h3 class="text-lg font-bold">Edit banner</h3>
 			<div class="py-4">
-				<Cropper bind:cropper src={$user?.bannerImage ?? ''} cropper_props={bannerProps}></Cropper>
+				<Cropper
+					bind:cropper
+					src={bannerSrc ? bannerSrc : $user?.bannerImage ?? ''}
+					cropper_props={bannerProps}
+				/>
+				<input
+					type="file"
+					class="file-input w-full"
+					bind:files={bannerFile}
+					on:change={previewBannerImage}
+				/>
 			</div>
 			<div class="modal-action">
 				<form method="dialog">
-					<button type="submit" class="btn">Close</button>
+					<button type="submit" class="btn btn-outline">Confirm</button>
 				</form>
 			</div>
 		</div>
@@ -112,10 +161,10 @@
 {/if}
 
 <div class="flex flex-col">
-	<img class="aspect-[3/1] w-full" src={$user?.bannerImage} alt="user banner" />
+	<img class="aspect-[3/1] w-full" src={bannerCropped ?? $user?.bannerImage} alt="user banner" />
 	<div class="avatar ml-8 bottom-16 -mb-16">
 		<div class="w-32 rounded-full border-4 border-base-100">
-			<img src={$user?.profileImage} alt="user avatar" />
+			<img src={profileCropped ?? $user?.profileImage} alt="user avatar" />
 		</div>
 	</div>
 	<div class="flex flex-col lg:flex-row gap-2 self-end relative mr-4 bottom-12 -mb-12">
@@ -138,39 +187,6 @@
 	</div>
 </div>
 <div class="p-4 flex flex-col gap-4">
-	<!-- <div>
-		<div class="label">
-			<span class="label-text">Profile Picture</span>
-		</div>
-		{#if profileFile}
-			<Cropper class="h-44" bind:cropper src={profileSrc ?? ''} cropper_props={profileProps}
-			></Cropper>
-		{/if}
-		<input
-			name="profileImage"
-			class="file-input file-input-bordered w-full"
-			type="file"
-			accept="image/*"
-			bind:files={profileFile}
-			on:change={previewProfileImage}
-		/>
-
-		<div class="label">
-			<span class="label-text">Profile Banner</span>
-		</div>
-		{#if bannerSrc}
-			<Cropper class="h-44" bind:cropper src={bannerSrc ?? ''} cropper_props={bannerProps}
-			></Cropper>
-		{/if}
-		<input
-			name="bannerImage"
-			class="file-input file-input-bordered w-full"
-			type="file"
-			accept="image/*"
-			bind:files={bannerFile}
-			on:change={previewBannerImage}
-		/>
-	</div> -->
 	<form use:enhance enctype="multipart/form-data" method="post" class="flex flex-col gap-4">
 		{#if form?.error}
 			<div class="alert alert-error p-4" role="alert">
