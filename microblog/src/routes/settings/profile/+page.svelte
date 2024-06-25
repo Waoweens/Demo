@@ -11,6 +11,7 @@
 	import type { PassedUser } from '$lib/common/util';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { fileTypeFromBlob } from 'file-type';
 
 	const user = getContext<PassedUser>('user');
 
@@ -21,11 +22,13 @@
 	let profileFile: FileList | null = null;
 	let profileSrc: string | null = null;
 	let profileCropped: string | null = null;
+	let profileData: Blob | null = null;
 	let profileModal: HTMLDialogElement | null = null;
 
 	let bannerFile: FileList | null = null;
 	let bannerSrc: string | null = null;
 	let bannerCropped: string | null = null;
+	let bannerData: Blob | null = null;
 	let bannerModal: HTMLDialogElement | null = null;
 
 	let cropper: CropperInstance | null = null;
@@ -78,8 +81,10 @@
 				height: 400
 			});
 			if (canvas) {
-				const dataUrl = canvas.toDataURL();
-				profileCropped = dataUrl;
+				profileCropped = canvas.toDataURL();
+				canvas.toBlob((blob) => {
+					profileData = blob;
+				});
 			}
 		}
 		history.back();
@@ -92,8 +97,10 @@
 				height: 500
 			});
 			if (canvas) {
-				const dataUrl = canvas.toDataURL();
-				bannerCropped = dataUrl;
+				bannerCropped = canvas.toDataURL();
+				canvas.toBlob((blob) => {
+					bannerData = blob;
+				});
 			}
 		}
 		history.back();
@@ -230,6 +237,9 @@
 				bind:value={bio}
 			/>
 		</div>
+
+		<input type="hidden" name="profileImage" bind:value={profileData} />
+		<input type="hidden" name="bannerImage" bind:value={bannerData} />
 
 		<button type="submit" class="btn btn-primary w-full">Save</button>
 	</form>
