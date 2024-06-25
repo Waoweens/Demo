@@ -77,6 +77,6 @@ export const actions: Actions = {
 			...sessionCookie.attributes
 		});
 
-		return redirect(302, `/auth/redirect-root`)
+		return redirect(302, `/settings/profile`)
 	}
 }
