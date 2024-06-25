@@ -65,8 +65,8 @@ export const actions: Actions = {
 				passwordHash,
 				displayName: `Display Name for @${username}`,
 				bio: `Temporary bio for @${username}`,
-				profileImage: 'https://placehold.co/400',
-				bannerImage: 'https://placehold.co/1500x500'
+				profileImage: 'https://files.meowcorp.net/upload/microblog/static/black-1x1.png',
+				bannerImage: 'https://files.meowcorp.net/upload/microblog/static/black-1x1.png'
 			}
 		});
 
