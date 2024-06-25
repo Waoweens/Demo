@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	if (username === "profile") {
 		if (!locals.user) error(401, 'Unauthorized');
-		redirect(302, `/${locals.user.username}`);
+		return redirect(302, `/${locals.user.username}`);
 	};
 
 	// fetch db for params.username
