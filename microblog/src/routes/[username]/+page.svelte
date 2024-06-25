@@ -23,10 +23,10 @@
 		</div>
 		<div class="flex gap-2 self-end relative mr-4 bottom-12 -mb-12">
 			{#if $user?.id === data.user.id}
-				<button class="btn btn-outline">
+				<a href="/settings/profile" class="btn btn-outline">
 					<IconEdit />
 					Edit Profile
-				</button>
+				</a>
 			{:else}
 				<button class="btn btn-primary">
 					<IconFollow />
