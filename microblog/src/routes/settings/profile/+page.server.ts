@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import { UPLOAD_API_URL } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import db from '$lib/server/db';
 import sharp from 'sharp';
 import { fileTypeFromBuffer } from 'file-type/core';
@@ -63,7 +63,7 @@ export const actions: Actions = {
 				type: type.mime
 			});
 
-			const path = `${UPLOAD_API_URL}/user/${locals.user.id}/${file.name}`;
+			const path = `${env.UPLOAD_API_URL}/user/${locals.user.id}/${file.name}`;
 			const response = await fetch(path, {
 				method: 'PUT',
 				body: file
@@ -105,7 +105,7 @@ export const actions: Actions = {
 				type: type.mime
 			});
 
-			const path = `${UPLOAD_API_URL}/user/${locals.user.id}/${file.name}`;
+			const path = `${env.UPLOAD_API_URL}/user/${locals.user.id}/${file.name}`;
 			const response = await fetch(path, {
 				method: 'PUT',
 				body: file
