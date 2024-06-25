@@ -1,10 +1,18 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { UPLOAD_API_URL } from '$env/static/private';
 import db from '$lib/server/db';
 import sharp from 'sharp';
 import { fileTypeFromBuffer } from 'file-type/core';
 import { snowflake } from '$lib/common/util';
+
+export const load: PageServerLoad = () => {
+	return {
+		meta: {
+			title: 'Profile — Settings'
+		}
+	}
+}
 
 export const actions: Actions = {
 	default: async ({ locals, request }) => {
