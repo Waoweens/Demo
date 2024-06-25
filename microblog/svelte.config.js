@@ -15,7 +15,8 @@ const config = {
 		alias: {
 			$components: './src/lib/components',
 			$lib: './src/lib',
-		}
+		},
+		csrf: process.env.NODE_ENV !== 'development',
 	}
 };
 
