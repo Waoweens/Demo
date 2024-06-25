@@ -57,4 +57,5 @@
 			</div>
 		</article>
 	{/each}
+	<div class="text-center my-4 mb-16 md:mb-0">End of feed</div>
 </section>

@@ -48,5 +48,4 @@
 		</div>
 	</div>
 	<Timeline posts={data.posts} />
-	<div class="text-center my-4">End of feed</div>
 </div>
