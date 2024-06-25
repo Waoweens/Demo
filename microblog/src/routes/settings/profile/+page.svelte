@@ -8,10 +8,10 @@
 	import IconName from '~icons/material-symbols/person';
 	import { Cropper, type CropperInstance, type CropperDefaultProps } from 'svelte-cropper';
 	import { getContext } from 'svelte';
-	import type { PassedUser } from '$lib/common/util';
+	import { CFileList, type PassedUser } from '$lib/common/util';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { fileTypeFromBlob } from 'file-type';
+	import { fileTypeFromBlob } from 'file-type/core';
 
 	const user = getContext<PassedUser>('user');
 
@@ -28,8 +28,10 @@
 	let bannerFile: FileList | null = null;
 	let bannerSrc: string | null = null;
 	let bannerCropped: string | null = null;
-	let bannerData: Blob | null = null;
+	let bannerData: CFileList | null = null;
 	let bannerModal: HTMLDialogElement | null = null;
+
+	$: console.log('profileData', profileData);
 
 	let cropper: CropperInstance | null = null;
 	const profileProps: CropperDefaultProps = {
@@ -75,14 +77,19 @@
 	}
 
 	function saveProfile() {
+		console.log('saveProfile');
 		if (cropper) {
+			console.log('saveProfile>cropper');
 			const canvas = cropper.getCroppedCanvas({
 				width: 400,
 				height: 400
 			});
 			if (canvas) {
+				console.log('saveProfile>cropper>canvas');
 				profileCropped = canvas.toDataURL();
-				canvas.toBlob((blob) => {
+				canvas.toBlob(async (blob) => {
+					console.log('saveProfile>cropper>canvas>blob');
+					// profileData = new CFileList([new File([blob!], 'profile')]);
 					profileData = blob;
 				});
 			}
@@ -99,7 +106,7 @@
 			if (canvas) {
 				bannerCropped = canvas.toDataURL();
 				canvas.toBlob((blob) => {
-					bannerData = blob;
+					// bannerData = blob;
 				});
 			}
 		}
@@ -232,7 +239,7 @@
 			<textarea
 				maxlength="280"
 				class="textarea textarea-bordered h-44"
-				name="displayName"
+				name="bio"
 				placeholder="Bio..."
 				bind:value={bio}
 			/>
